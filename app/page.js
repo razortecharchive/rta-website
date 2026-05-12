@@ -56,16 +56,13 @@ export default function Home() {
 
       {/* HERO */}
       <section style={{position:'relative', width:'100vw', height:'100vh', background:'#EDEBE5', overflow:'hidden'}}>
+        <img src="/hero.png" alt="Razor Tech Archive" style={{position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center'}} />
+        <div style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(237,235,229,0) 55%, rgba(237,235,229,0.85) 100%)', zIndex:5, pointerEvents:'none'}}></div>
         <div style={{position:'absolute', top:88, left:0, right:0, padding:'0 48px', display:'flex', justifyContent:'space-between', zIndex:10}}>
           <span style={{fontSize:9, letterSpacing:'0.3em', textTransform:'uppercase', color:'#9A948C'}}>Razor Tech Archive — 2026</span>
           <span style={{fontSize:9, letterSpacing:'0.3em', textTransform:'uppercase', color:'#9A948C'}}>/ Stealth Cut /</span>
         </div>
         <span style={{position:'absolute', left:24, top:'50%', transform:'translateY(-50%) rotate(180deg)', writingMode:'vertical-rl', fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7', zIndex:10}}>Archive</span>
-        <div style={{position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', paddingTop:80}}>
-          <div style={{width:'min(340px, 36vw)', aspectRatio:'2/3', border:'1px solid #C4BFB7', background:'#E5E2DA', position:'relative', overflow:'hidden'}}>
-            <img src="/hero.png" alt="Razor Tech Archive" style={{width:'100%', height:'100%', objectFit:'cover', display:'block'}} />
-          </div>
-        </div>
         <div style={{position:'absolute', left:48, top:'50%', transform:'translateY(-50%)', zIndex:10}}>
           <h1 style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(13px,1.4vw,18px)', fontWeight:300, lineHeight:1.3, marginBottom:10}}>—Razor Tech<br/>Archive</h1>
           <p style={{fontSize:9, letterSpacing:'0.25em', textTransform:'uppercase', color:'#9A948C'}}>感覚を理論へ。</p>
@@ -74,6 +71,12 @@ export default function Home() {
           <p style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, fontStyle:'italic', color:'#9A948C', lineHeight:1.8}}>Precision has no language.<br/>感覚を理論へ。</p>
           <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:12}}>
             <span style={{fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'#C4BFB7', writingMode:'vertical-rl'}}>Scroll</span>
+            <div style={{
+              width:1,
+              height:52,
+              background:'linear-gradient(to bottom, #C9956A, transparent)',
+              animation:'scrollPulse 2.4s ease-in-out infinite'
+            }}></div>
           </div>
         </div>
       </section>
@@ -158,6 +161,10 @@ export default function Home() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;1,200;1,300&family=DM+Sans:wght@200;300&display=swap');
         @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        @keyframes scrollPulse {
+          0%, 100% { transform: scaleY(0.3); transform-origin: top; opacity: 0.4; }
+          50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+        }
       `}</style>
     </main>
   );
