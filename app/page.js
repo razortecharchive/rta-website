@@ -34,9 +34,9 @@ export default function Home() {
       {menuOpen && (
         <div className="menu-overlay" style={{position:'fixed', inset:0, background:'#E5E2DA', zIndex:150, display:'flex', flexDirection:'column', justifyContent:'center', padding:'120px 80px 80px'}}>
           <ul style={{listStyle:'none', marginBottom:80}}>
-            {[['01','Seminar'],['02','Shop'],['03','Members'],['04','About'],['05','Archive'],['06','Contact']].map(([num, name]) => (
+            {[['01','Seminar','#'],['02','Shop','/shop'],['03','Members','#'],['04','About','#'],['05','Archive','#'],['06','Contact','#']].map(([num, name, href]) => (
               <li key={name} style={{borderBottom:'1px solid #C4BFB7', overflow:'hidden'}}>
-                <a href="#" style={{display:'flex', alignItems:'center', padding:'22px 0', textDecoration:'none', color:'rgba(28,26,23,0.45)', fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase'}}>
+                <a href={href} style={{display:'flex', alignItems:'center', padding:'22px 0', textDecoration:'none', color:'rgba(28,26,23,0.45)', fontSize:11, letterSpacing:'0.32em', textTransform:'uppercase'}}>
                   <span style={{fontSize:9, color:'#9A948C', width:36}}>{num}</span>
                   <span style={{flex:1, paddingLeft:20}}>{name}</span>
                   <span style={{fontSize:10, color:'#C9956A'}}>→</span>
