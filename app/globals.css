@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;1,200;1,300&family=DM+Sans:wght@200;300&display=swap');
 
 :root {
   --bg: #EDEBE5;
@@ -20,4 +21,20 @@ body {
   color: var(--black);
   font-family: 'DM Sans', sans-serif;
   font-weight: 200;
+}
+
+/* Shared nav styles (mobile) */
+@media (max-width: 768px) {
+  .site-nav {
+    padding: 20px 20px !important;
+  }
+  .menu-overlay {
+    padding: 100px 24px 40px !important;
+  }
+  .site-footer {
+    flex-direction: column !important;
+    gap: 18px !important;
+    padding: 36px 24px !important;
+    text-align: center !important;
+  }
 }
