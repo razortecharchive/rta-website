@@ -58,19 +58,14 @@ export default function Home() {
       <section style={{position:'relative', width:'100vw', height:'100vh', background:'#EDEBE5', overflow:'hidden'}}>
         <img src="/hero.png" alt="Razor Tech Archive" style={{position:'absolute', top:0, left:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center'}} />
         <div style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(237,235,229,0) 55%, rgba(237,235,229,0.85) 100%)', zIndex:5, pointerEvents:'none'}}></div>
-        <div className="hero-meta" style={{position:'absolute', top:88, left:0, right:0, padding:'0 48px', display:'flex', justifyContent:'space-between', zIndex:10}}>
-          <span style={{fontSize:9, letterSpacing:'0.3em', textTransform:'uppercase', color:'#9A948C'}}>Razor Tech Archive — 2026</span>
-          <span style={{fontSize:9, letterSpacing:'0.3em', textTransform:'uppercase', color:'#9A948C'}}>/ Stealth Cut /</span>
-        </div>
         <span className="hero-vert" style={{position:'absolute', left:24, top:'50%', transform:'translateY(-50%) rotate(180deg)', writingMode:'vertical-rl', fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7', zIndex:10}}>Archive</span>
         <div className="hero-title-block" style={{position:'absolute', left:48, top:'50%', transform:'translateY(-50%)', zIndex:10}}>
-          <h1 style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(13px,1.4vw,18px)', fontWeight:300, lineHeight:1.3, marginBottom:10}}>—Razor Tech<br/>Archive</h1>
-          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:9, letterSpacing:'0.25em', textTransform:'uppercase', color:'#9A948C'}}>感覚を理論へ。</p>
+          <p className="hero-title-en" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(26px,3.2vw,44px)', fontWeight:300, fontStyle:'italic', lineHeight:1.15, marginBottom:18, color:'#1C1A17'}}>Precision has no language.</p>
+          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, letterSpacing:'0.3em', color:'#9A948C'}}>感覚を理論へ。</p>
         </div>
-        <div className="hero-bottom" style={{position:'absolute', bottom:40, left:0, right:0, padding:'0 48px', display:'flex', alignItems:'flex-end', justifyContent:'space-between', zIndex:10}}>
-          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, fontStyle:'italic', color:'#9A948C', lineHeight:1.8}}>Precision has no language.<br/>感覚を理論へ。</p>
+        <div className="hero-bottom" style={{position:'absolute', bottom:40, left:0, right:0, padding:'0 48px', display:'flex', alignItems:'flex-end', justifyContent:'flex-end', zIndex:10}}>
           <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:12}}>
-            <span style={{fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'#C4BFB7', writingMode:'vertical-rl'}}>Scroll</span>
+            <span style={{fontFamily:"'DM Sans', sans-serif", fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(28,26,23,0.5)', writingMode:'vertical-rl'}}>Scroll</span>
             <div style={{
               width:1,
               height:52,
@@ -172,15 +167,15 @@ export default function Home() {
           .menu-overlay {
             padding: 100px 24px 40px !important;
           }
-          .hero-meta {
-            padding: 0 20px !important;
-            top: 76px !important;
-          }
           .hero-vert {
             display: none !important;
           }
           .hero-title-block {
             left: 20px !important;
+            right: 20px !important;
+          }
+          .hero-title-en {
+            font-size: 28px !important;
           }
           .hero-bottom {
             padding: 0 20px !important;

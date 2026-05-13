@@ -157,13 +157,13 @@ export default function Shop() {
 
       {/* PRODUCTS GRID */}
       <section className="section-pad" style={{padding:'120px 80px'}}>
-        <div className="products-grid" style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:60}}>
+        <div className="products-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:60}}>
           {products.map((p, idx) => {
             const isLoading = loadingId === p.id;
             const disabled = p.soldOut || isLoading;
             return (
               <article key={p.id} className="product-card" style={{display:'flex', flexDirection:'column', opacity: p.soldOut ? 0.55 : 1, transition:'opacity 0.3s'}}>
-                <div style={{aspectRatio:'3/4', background:'#E5E2DA', border:'1px solid #C4BFB7', marginBottom:28, position:'relative', overflow:'hidden'}}>
+                <div style={{aspectRatio:'1/1', background:'#D9D5CC', border:'1px solid #C4BFB7', marginBottom:28, position:'relative', overflow:'hidden'}}>
                   <span style={{position:'absolute', top:16, left:16, fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'#9A948C'}}>0{idx + 1}</span>
                   <span style={{position:'absolute', top:16, right:16, fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color: p.category === 'Seminar' ? '#C9956A' : '#9A948C'}}>{p.category}</span>
                   <span style={{position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', fontFamily:'Cormorant Garamond, serif', fontSize:10, letterSpacing:'0.3em', color:'#C4BFB7', textTransform:'uppercase'}}>
@@ -235,8 +235,8 @@ export default function Shop() {
             padding: 72px 24px !important;
           }
           .products-grid {
-            grid-template-columns: 1fr !important;
-            gap: 56px !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 24px !important;
           }
           .product-name {
             font-size: 20px !important;
