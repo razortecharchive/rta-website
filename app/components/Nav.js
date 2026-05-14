@@ -15,16 +15,16 @@ export default function Nav() {
 
   return (
     <>
-      <nav className="site-nav" style={{position:'fixed', top:0, left:0, right:0, zIndex:200, padding:'26px 48px', display:'flex', alignItems:'center', justifyContent:'space-between', background:'rgba(237,235,229,0.9)', backdropFilter:'blur(12px)', borderBottom:'1px solid #C4BFB7'}}>
-        <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" style={{display:'flex', flexDirection:'column', gap:7, cursor:'pointer', padding:4, background:'none', border:'none', zIndex:300}}>
+      <nav className="site-nav" style={{position:'fixed', top:0, left:0, right:0, zIndex:200, padding:'26px 48px', display:'grid', gridTemplateColumns:'auto 1fr auto', alignItems:'center', gap:16, background:'rgba(237,235,229,0.9)', backdropFilter:'blur(12px)', borderBottom:'1px solid #C4BFB7'}}>
+        <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" style={{display:'flex', flexDirection:'column', gap:7, cursor:'pointer', padding:4, background:'none', border:'none', zIndex:300, justifySelf:'start'}}>
           <span style={{display:'block', width:24, height:1, background:'#1C1A17', transition:'all 0.5s', transform: menuOpen ? 'translateY(8px) rotate(45deg)' : 'none'}}></span>
           <span style={{display:'block', width:24, height:1, background:'#1C1A17', transition:'all 0.5s', opacity: menuOpen ? 0 : 1}}></span>
           <span style={{display:'block', width:24, height:1, background:'#1C1A17', transition:'all 0.5s', transform: menuOpen ? 'translateY(-8px) rotate(-45deg)' : 'none'}}></span>
         </button>
-        <div style={{position:'absolute', top:'50%', left:'50%', transform:'translate(-50%, -50%)', whiteSpace:'nowrap'}}>
+        <div style={{textAlign:'center', whiteSpace:'nowrap', minWidth:0}}>
           <a href="/" className="site-logo" style={{fontFamily:'Cormorant Garamond, serif', fontSize:11, letterSpacing:'0.2em', textTransform:'uppercase', whiteSpace:'nowrap', color:'#1C1A17', textDecoration:'none'}}>Razor Tech Archive</a>
         </div>
-        <div style={{display:'flex', gap:20}}>
+        <div style={{display:'flex', gap:20, justifySelf:'end'}}>
           <button aria-label="Search" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           </button>

@@ -76,16 +76,25 @@ export default function SeminarPage() {
     <main style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
       <Nav />
 
-      {/* HEADER */}
-      <section className="seminar-header" style={{padding:'180px 80px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:36, display:'flex', alignItems:'center', gap:16}}>
-          <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
-          Seminar — Sessions
+      {/* HERO PHOTO */}
+      <section className="seminar-hero" style={{position:'relative', width:'100%', height:'70vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
+        <img
+          src="/seminar-hero.jpg"
+          alt="Razor Tech Archive — Seminars & Sessions"
+          style={{position:'absolute', top:0, left:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center'}}
+        />
+        <div aria-hidden="true" style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(237,235,229,0.3) 70%, rgba(237,235,229,1) 100%)', zIndex:5, pointerEvents:'none'}}></div>
+
+        <div className="seminar-hero-content" style={{position:'absolute', inset:0, zIndex:10, display:'flex', flexDirection:'column', justifyContent:'center', padding:'180px 80px 80px'}}>
+          <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#FFFFFF', marginBottom:36, display:'flex', alignItems:'center', gap:16, opacity:0.85}}>
+            <span style={{width:18, height:1, background:'#FFFFFF', display:'inline-block', opacity:0.7}}></span>
+            Seminar — Sessions
+          </div>
+          <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36, color:'#FFFFFF'}}>
+            <em style={{fontStyle:'italic', color:'#FFFFFF'}}>Seminars</em><br/>& Sessions
+          </h1>
+          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:560, opacity:0.85}}>レザーカット技術と思想を、対面で深く学ぶための定期セッション。Stealth cut の感覚を、各自の身体に落とし込むための時間。</p>
         </div>
-        <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
-          <em style={{fontStyle:'italic', color:'#C9956A'}}>Seminars</em><br/>& Sessions
-        </h1>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:560}}>レザーカット技術と思想を、対面で深く学ぶための定期セッション。Stealth cut の感覚を、各自の身体に落とし込むための時間。</p>
       </section>
 
       {/* UPCOMING */}
@@ -144,6 +153,15 @@ export default function SeminarPage() {
         ))}
       </section>
 
+      {/* ABOUT PHOTO (above Join the Archive) */}
+      <section className="seminar-about-photo" style={{width:'100%', height:'50vh', overflow:'hidden'}}>
+        <img
+          src="/seminar-about.jpg"
+          alt="精密なカットと仕上がり — RTA セッション"
+          style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}
+        />
+      </section>
+
       {/* CTA */}
       <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
         <div style={{textAlign:'center'}}>
@@ -164,8 +182,11 @@ export default function SeminarPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .seminar-header {
-            padding: 140px 24px 60px !important;
+          .seminar-hero {
+            height: 60vh !important;
+          }
+          .seminar-hero-content {
+            padding: 140px 24px 40px !important;
           }
           .section-pad {
             padding: 80px 24px !important;
