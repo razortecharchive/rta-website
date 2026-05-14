@@ -1,4 +1,11 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import Nav from '../components/Nav';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const pillars = [
   {
@@ -22,47 +29,128 @@ const pillars = [
 ];
 
 export default function AboutPage() {
+  const mainRef = useRef(null);
+
+  useEffect(() => {
+    const root = mainRef.current;
+    if (!root) return;
+
+    const ctx = gsap.context(() => {
+      const fadeUpEls = root.querySelectorAll('.about-fade-up');
+      const titleEl = root.querySelector('.about-animate-title');
+      const parallaxWraps = root.querySelectorAll('.about-parallax-wrap');
+
+      gsap.set(fadeUpEls, { opacity: 0, y: 56 });
+      if (titleEl) {
+        gsap.set(titleEl, { opacity: 0, x: -72 });
+      }
+
+      fadeUpEls.forEach((el) => {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 0.95,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            end: 'top 60%',
+            toggleActions: 'play none none none',
+          },
+        });
+      });
+
+      if (titleEl) {
+        gsap.to(titleEl, {
+          opacity: 1,
+          x: 0,
+          duration: 1.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: titleEl.closest('.about-page-top') ?? titleEl,
+            start: 'top 82%',
+            end: 'top 55%',
+            toggleActions: 'play none none none',
+          },
+        });
+      }
+
+      parallaxWraps.forEach((wrap) => {
+        const img = wrap.querySelector('img');
+        if (!img) return;
+        gsap.fromTo(
+          img,
+          { y: -64 },
+          {
+            y: 64,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: wrap,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1,
+            },
+          }
+        );
+      });
+    }, root);
+
+    return () => {
+      ctx.revert();
+    };
+  }, []);
+
   return (
-    <main style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
+    <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
       <Nav />
 
       {/* 1. HEADER */}
       <section className="section-pad about-page-top" style={{padding:'180px 80px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           About / Manifesto
         </div>
-        <h1 className="about-page-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:0}}>
+        <h1 className="about-page-title about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:0}}>
           The Art of <em style={{fontStyle:'italic', color:'#C9956A'}}>Stealth</em> Cut.
         </h1>
       </section>
 
       {/* 2. CONCEPT TEXT */}
       <section className="section-pad" style={{padding:'80px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', maxWidth:640}}>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', maxWidth:640}}>
           <strong style={{color:'#1C1A17', fontWeight:300}}>「stealth cut」</strong>は、音も摩擦も最小化し、毛束の重さと刃が静かに一致した瞬間に立ち上がる切断のあり方である。神秘ではなく、理論と感覚の両軸から学べる技術として RTA はそれを扱う。
         </p>
       </section>
 
-      {/* 3. IMAGE about-2 */}
-      <div className="about-photo-2" style={{width:'100%', height:'70vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
+      {/* 3. IMAGE about-2 — parallax */}
+      <div className="about-parallax-wrap about-photo-2" style={{position:'relative', width:'100%', height:'70vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
         <img
           src="/about-2.jpg"
           alt="Razor Tech Archive — セッション風景"
-          style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}
+          style={{
+            position:'absolute',
+            left:0,
+            top:'-7.5%',
+            width:'100%',
+            height:'115%',
+            objectFit:'cover',
+            objectPosition:'center',
+            display:'block',
+            willChange:'transform',
+          }}
         />
       </div>
 
       {/* 4. PILLARS LIST */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Three Pillars
         </div>
         {pillars.map((p) => (
           <div
             key={p.num}
-            className="about-pillar-row"
+            className="about-pillar-row about-fade-up"
             style={{display:'grid', gridTemplateColumns:'180px 1fr', alignItems:'start', gap:48, padding:'36px 0', borderBottom:'1px solid #C4BFB7'}}
           >
             <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{p.num} — {p.jp}</span>
@@ -74,25 +162,35 @@ export default function AboutPage() {
         ))}
       </section>
 
-      {/* 5. IMAGE about-1 */}
-      <div className="about-photo-1" style={{width:'100%', height:'60vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
+      {/* 5. IMAGE about-1 — parallax */}
+      <div className="about-parallax-wrap about-photo-1" style={{position:'relative', width:'100%', height:'60vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
         <img
           src="/about-1.jpg"
           alt="Razor Tech Archive — コンセプトビジュアル"
-          style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}
+          style={{
+            position:'absolute',
+            left:0,
+            top:'-7.5%',
+            width:'100%',
+            height:'115%',
+            objectFit:'cover',
+            objectPosition:'center',
+            display:'block',
+            willChange:'transform',
+          }}
         />
       </div>
 
       {/* 6. QUOTE */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7', textAlign:'center'}}>
-        <p className="about-quote" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(22px,2.8vw,36px)', fontStyle:'italic', fontWeight:300, lineHeight:1.45, color:'#1C1A17', maxWidth:720, margin:'0 auto 24px', letterSpacing:'-0.01em'}}>
+        <p className="about-quote about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(22px,2.8vw,36px)', fontStyle:'italic', fontWeight:300, lineHeight:1.45, color:'#1C1A17', maxWidth:720, margin:'0 auto 24px', letterSpacing:'-0.01em'}}>
           “The blade does not <em style={{color:'#C9956A'}}>cut</em> hair.<br/>It listens to the weight that asks to fall.”
         </p>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#9A948C', letterSpacing:'0.3em', textTransform:'uppercase'}}>— RTA Manifesto, 2026</p>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#9A948C', letterSpacing:'0.3em', textTransform:'uppercase'}}>— RTA Manifesto, 2026</p>
       </section>
 
       {/* FOOTER */}
-      <footer className="site-footer" style={{padding:'48px 80px', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
         <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>
