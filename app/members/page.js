@@ -37,7 +37,7 @@ export default function MembersPage() {
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
         </div>
 
-        <h1 className="members-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(56px,9vw,148px)', fontWeight:200, lineHeight:0.92, letterSpacing:'-0.03em', marginBottom:36}}>
+        <h1 className="members-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
           <em style={{fontStyle:'italic', color:'#C9956A'}}>Coming</em><br/>Soon.
         </h1>
 
@@ -144,9 +144,6 @@ export default function MembersPage() {
         @media (max-width: 768px) {
           .members-hero {
             padding: 140px 24px 80px !important;
-          }
-          .members-title {
-            font-size: 72px !important;
           }
           .section-pad {
             padding: 72px 24px !important;

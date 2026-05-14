@@ -21,7 +21,7 @@ export default function Nav() {
           <span style={{display:'block', width:24, height:1, background:'#1C1A17', transition:'all 0.5s', opacity: menuOpen ? 0 : 1}}></span>
           <span style={{display:'block', width:24, height:1, background:'#1C1A17', transition:'all 0.5s', transform: menuOpen ? 'translateY(-8px) rotate(-45deg)' : 'none'}}></span>
         </button>
-        <div style={{position:'absolute', left:'50%', transform:'translateX(-50%)', whiteSpace:'nowrap'}}>
+        <div style={{position:'absolute', top:'50%', left:'50%', transform:'translate(-50%, -50%)', whiteSpace:'nowrap'}}>
           <a href="/" className="site-logo" style={{fontFamily:'Cormorant Garamond, serif', fontSize:11, letterSpacing:'0.2em', textTransform:'uppercase', whiteSpace:'nowrap', color:'#1C1A17', textDecoration:'none'}}>Razor Tech Archive</a>
         </div>
         <div style={{display:'flex', gap:20}}>

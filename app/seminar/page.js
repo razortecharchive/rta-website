@@ -82,7 +82,7 @@ export default function SeminarPage() {
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Seminar — Sessions
         </div>
-        <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(48px,7vw,108px)', fontWeight:200, lineHeight:0.95, letterSpacing:'-0.02em', marginBottom:36}}>
+        <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
           <em style={{fontStyle:'italic', color:'#C9956A'}}>Seminars</em><br/>& Sessions
         </h1>
         <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:560}}>レザーカット技術と思想を、対面で深く学ぶための定期セッション。Stealth cut の感覚を、各自の身体に落とし込むための時間。</p>
@@ -166,9 +166,6 @@ export default function SeminarPage() {
         @media (max-width: 768px) {
           .seminar-header {
             padding: 140px 24px 60px !important;
-          }
-          .page-heading {
-            font-size: 56px !important;
           }
           .section-pad {
             padding: 80px 24px !important;

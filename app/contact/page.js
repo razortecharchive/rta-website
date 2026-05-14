@@ -43,7 +43,7 @@ export default function ContactPage() {
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Contact — Get in Touch
         </div>
-        <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(48px,7vw,108px)', fontWeight:200, lineHeight:0.95, letterSpacing:'-0.02em', marginBottom:36}}>
+        <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
           Let's <em style={{fontStyle:'italic', color:'#C9956A'}}>talk</em>.
         </h1>
         <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:560}}>
@@ -175,9 +175,6 @@ export default function ContactPage() {
         @media (max-width: 768px) {
           .contact-header {
             padding: 140px 24px 60px !important;
-          }
-          .page-heading {
-            font-size: 54px !important;
           }
           .section-pad {
             padding: 72px 24px !important;

@@ -64,7 +64,7 @@ export default function Home() {
         </div>
         <div className="about-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:120}}>
           <div>
-            <div className="about-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(40px,5vw,72px)', fontWeight:200, lineHeight:0.95, letterSpacing:'-0.02em', marginBottom:48}}>
+            <div className="about-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
               The Art<br/>of <em style={{fontStyle:'italic', color:'#C9956A'}}>Stealth</em><br/>Cut
             </div>
             <div style={{width:72, height:72, border:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'center'}}>
@@ -128,10 +128,6 @@ export default function Home() {
           .about-grid {
             grid-template-columns: 1fr !important;
             gap: 48px !important;
-          }
-          .about-heading {
-            font-size: 44px !important;
-            margin-bottom: 28px !important;
           }
           .seminar-item {
             grid-template-columns: 1fr !important;

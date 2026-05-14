@@ -16,7 +16,7 @@ export default function AboutPage() {
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           About — Manifesto
         </div>
-        <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(56px,8vw,128px)', fontWeight:200, lineHeight:0.92, letterSpacing:'-0.03em', marginBottom:48, position:'relative', zIndex:1}}>
+        <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36, position:'relative', zIndex:1}}>
           The Art of<br/><em style={{fontStyle:'italic', color:'#C9956A'}}>Stealth</em><br/>Cut.
         </h1>
         <p className="about-lede" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:15, fontStyle:'italic', color:'#1C1A17', lineHeight:2.1, maxWidth:620, position:'relative', zIndex:1}}>
@@ -155,9 +155,6 @@ export default function AboutPage() {
         @media (max-width: 768px) {
           .about-hero {
             padding: 140px 24px 80px !important;
-          }
-          .page-heading {
-            font-size: 60px !important;
           }
           .about-lede {
             font-size: 13px !important;
