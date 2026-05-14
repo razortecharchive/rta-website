@@ -31,7 +31,7 @@ export default function Home() {
         </div>
         <div style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(237,235,229,0) 55%, rgba(237,235,229,0.85) 100%)', zIndex:5, pointerEvents:'none'}}></div>
         <span className="hero-vert about-fade-up" style={{position:'absolute', left:24, top:'50%', transform:'translateY(-50%) rotate(180deg)', writingMode:'vertical-rl', fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7', zIndex:10}}>Archive</span>
-        <div className="hero-title-block" style={{position:'absolute', left:48, top:'50%', transform:'translateY(-50%)', zIndex:10}}>
+        <div className="hero-title-block" style={{position:'absolute', left:48, top:'60%', transform:'translateY(-50%)', zIndex:10}}>
           <p className="hero-title-en about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, fontWeight:300, fontStyle:'italic', lineHeight:1.5, marginBottom:14, color:'#9A948C'}}>Precision has no language.</p>
           <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, letterSpacing:'0.3em', color:'#9A948C'}}>感覚を理論へ。</p>
         </div>
