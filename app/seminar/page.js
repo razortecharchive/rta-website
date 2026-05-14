@@ -1,4 +1,7 @@
+'use client';
+
 import Nav from '../components/Nav';
+import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const upcomingSeminars = [
   {
@@ -72,40 +75,54 @@ const pastSeminars = [
 ];
 
 export default function SeminarPage() {
+  const mainRef = useGsapPageScroll();
+
   return (
-    <main style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
+    <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
       <Nav />
 
       {/* HERO PHOTO */}
       <section className="seminar-hero" style={{position:'relative', width:'100%', height:'70vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
-        <img
-          src="/seminar-hero.jpg"
-          alt="Razor Tech Archive — Seminars & Sessions"
-          style={{position:'absolute', top:0, left:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center'}}
-        />
+        <div className="about-parallax-wrap" style={{position:'absolute', inset:0}}>
+          <img
+            src="/seminar-hero.jpg"
+            alt="Razor Tech Archive — Seminars & Sessions"
+            style={{
+              position:'absolute',
+              left:0,
+              top:'-7.5%',
+              width:'100%',
+              height:'115%',
+              objectFit:'cover',
+              objectPosition:'center',
+              display:'block',
+              willChange:'transform',
+            }}
+          />
+        </div>
         <div aria-hidden="true" style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(237,235,229,0.3) 70%, rgba(237,235,229,1) 100%)', zIndex:5, pointerEvents:'none'}}></div>
 
-        <div className="seminar-hero-content" style={{position:'absolute', inset:0, zIndex:10, display:'flex', flexDirection:'column', justifyContent:'center', padding:'180px 80px 80px'}}>
-          <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#FFFFFF', marginBottom:36, display:'flex', alignItems:'center', gap:16, opacity:0.85}}>
+        <div className="seminar-hero-content about-page-top" style={{position:'absolute', inset:0, zIndex:10, display:'flex', flexDirection:'column', justifyContent:'center', padding:'180px 80px 80px'}}>
+          <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#FFFFFF', marginBottom:36, display:'flex', alignItems:'center', gap:16, opacity:0.85}}>
             <span style={{width:18, height:1, background:'#FFFFFF', display:'inline-block', opacity:0.7}}></span>
             Seminar — Sessions
           </div>
-          <h1 className="page-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36, color:'#FFFFFF'}}>
+          <h1 className="page-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36, color:'#FFFFFF'}}>
             <em style={{fontStyle:'italic', color:'#FFFFFF'}}>Seminars</em><br/>& Sessions
           </h1>
-          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:560, opacity:0.85}}>レザーカット技術と思想を、対面で深く学ぶための定期セッション。Stealth cut の感覚を、各自の身体に落とし込むための時間。</p>
+          <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:560, opacity:0.85}}>レザーカット技術と思想を、対面で深く学ぶための定期セッション。Stealth cut の感覚を、各自の身体に落とし込むための時間。</p>
         </div>
       </section>
 
       {/* UPCOMING */}
       <section className="section-pad" style={{padding:'140px 80px'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Upcoming
         </div>
 
         {upcomingSeminars.map((s) => (
-          <article key={s.num} className="seminar-detail" style={{display:'grid', gridTemplateColumns:'200px 1fr 200px', gap:60, padding:'56px 0', borderTop:'1px solid #C4BFB7', alignItems:'start', opacity: s.upcoming ? 0.45 : 1}}>
+          <article key={s.num} className="seminar-detail about-fade-up" style={{display:'grid', gridTemplateColumns:'200px 1fr 200px', gap:60, padding:'56px 0', borderTop:'1px solid #C4BFB7', alignItems:'start', opacity: s.upcoming ? 0.45 : 1}}>
             <div>
               <div style={{fontSize:10, color:'#9A948C', letterSpacing:'0.22em', marginBottom:14}}>{s.num} / {s.category}</div>
               <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:28, fontWeight:300, lineHeight:1.1, letterSpacing:'-0.01em'}}>{s.date}</div>
@@ -138,13 +155,13 @@ export default function SeminarPage() {
 
       {/* PAST */}
       <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Past — Archive
         </div>
 
         {pastSeminars.map((s) => (
-          <div key={s.num} className="past-row" style={{display:'grid', gridTemplateColumns:'80px 140px 1fr auto', gap:48, padding:'32px 0', borderBottom:'1px solid #C4BFB7', alignItems:'center', opacity:0.6}}>
+          <div key={s.num} className="past-row about-fade-up" style={{display:'grid', gridTemplateColumns:'80px 140px 1fr auto', gap:48, padding:'32px 0', borderBottom:'1px solid #C4BFB7', alignItems:'center', opacity:0.6}}>
             <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.18em'}}>{s.num}</span>
             <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:14, fontWeight:300}}>{s.date}</span>
             <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(15px,1.8vw,22px)', fontWeight:300}}>{s.name}</span>
@@ -154,28 +171,36 @@ export default function SeminarPage() {
       </section>
 
       {/* ABOUT PHOTO (above Join the Archive) */}
-      <section className="seminar-about-photo" style={{width:'100%', height:'50vh', overflow:'hidden'}}>
-        <div style={{position:'relative', width:'100%', height:'100%'}}>
-          <img
-            src="/seminar-about.jpg"
-            alt="精密なカットと仕上がり — RTA セッション"
-            style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}
-          />
-          <div aria-hidden="true" style={{position:'absolute', top:0, left:0, right:0, height:80, background:'linear-gradient(to bottom, #EDEBE5, transparent)', pointerEvents:'none'}}></div>
-          <div aria-hidden="true" style={{position:'absolute', bottom:0, left:0, right:0, height:80, background:'linear-gradient(to top, #EDEBE5, transparent)', pointerEvents:'none'}}></div>
-        </div>
-      </section>
+      <div className="seminar-about-photo about-parallax-wrap" style={{position:'relative', width:'100%', height:'50vh', overflow:'hidden'}}>
+        <img
+          src="/seminar-about.jpg"
+          alt="精密なカットと仕上がり — RTA セッション"
+          style={{
+            position:'absolute',
+            left:0,
+            top:'-7.5%',
+            width:'100%',
+            height:'115%',
+            objectFit:'cover',
+            objectPosition:'center',
+            display:'block',
+            willChange:'transform',
+          }}
+        />
+        <div aria-hidden="true" style={{position:'absolute', top:0, left:0, right:0, height:80, background:'linear-gradient(to bottom, #EDEBE5, transparent)', pointerEvents:'none', zIndex:1}}></div>
+        <div aria-hidden="true" style={{position:'absolute', bottom:0, left:0, right:0, height:80, background:'linear-gradient(to top, #EDEBE5, transparent)', pointerEvents:'none', zIndex:1}}></div>
+      </div>
 
       {/* CTA */}
       <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div style={{textAlign:'center'}}>
+        <div className="about-fade-up" style={{textAlign:'center'}}>
           <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, fontStyle:'italic', color:'#9A948C', marginBottom:24, lineHeight:1.8}}>新しいセッション情報を、いち早く受け取る。</p>
           <a href="/members" style={{display:'inline-block', fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'18px 44px', textDecoration:'none'}}>Join the Archive →</a>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="site-footer" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
         <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>

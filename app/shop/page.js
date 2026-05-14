@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Nav from '../components/Nav';
+import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const products = [
   {
@@ -53,6 +54,7 @@ const products = [
 export default function Shop() {
   const [loadingId, setLoadingId] = useState(null);
   const [success, setSuccess] = useState(false);
+  const mainRef = useGsapPageScroll();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -85,7 +87,7 @@ export default function Shop() {
   };
 
   return (
-    <main style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
+    <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
 
       {success && (
         <div style={{position:'fixed', top:96, left:'50%', transform:'translateX(-50%)', zIndex:250, background:'#E5E2DA', border:'1px solid #C9956A', padding:'16px 28px', display:'flex', alignItems:'center', gap:16}}>
@@ -98,15 +100,15 @@ export default function Shop() {
       <Nav />
 
       {/* SHOP HEADER */}
-      <section className="shop-header" style={{padding:'180px 80px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:36, display:'flex', alignItems:'center', gap:16}}>
+      <section className="shop-header about-page-top" style={{padding:'180px 80px 80px', borderBottom:'1px solid #C4BFB7'}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:36, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Shop — Tickets & Goods
         </div>
-        <h1 className="shop-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(48px,7vw,108px)', fontWeight:200, lineHeight:0.95, letterSpacing:'-0.02em', marginBottom:36}}>
+        <h1 className="shop-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(48px,7vw,108px)', fontWeight:200, lineHeight:0.95, letterSpacing:'-0.02em', marginBottom:36}}>
           Razor Tech<br/><em style={{fontStyle:'italic', color:'#C9956A'}}>Archive</em> Shop
         </h1>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:540}}>セミナーチケットと、Stealth cut の理論を支えるためのプロダクト群。技術を学び、道具として手元に置く。</p>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:540}}>セミナーチケットと、Stealth cut の理論を支えるためのプロダクト群。技術を学び、道具として手元に置く。</p>
       </section>
 
       {/* PRODUCTS GRID */}
@@ -116,7 +118,7 @@ export default function Shop() {
             const isLoading = loadingId === p.id;
             const disabled = p.soldOut || isLoading;
             return (
-              <article key={p.id} className="product-card" style={{display:'flex', flexDirection:'column', opacity: p.soldOut ? 0.55 : 1, transition:'opacity 0.3s'}}>
+              <article key={p.id} className="product-card about-fade-up" style={{display:'flex', flexDirection:'column', opacity: p.soldOut ? 0.55 : 1, transition:'opacity 0.3s'}}>
                 <div style={{aspectRatio:'1/1', background:'#D9D5CC', border:'1px solid #C4BFB7', marginBottom:28, position:'relative', overflow:'hidden'}}>
                   <span style={{position:'absolute', top:16, left:16, fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'#9A948C'}}>0{idx + 1}</span>
                   <span style={{position:'absolute', top:16, right:16, fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color: p.category === 'Seminar' ? '#C9956A' : '#9A948C'}}>{p.category}</span>
@@ -161,7 +163,7 @@ export default function Shop() {
       </section>
 
       {/* FOOTER */}
-      <footer className="site-footer" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
         <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>

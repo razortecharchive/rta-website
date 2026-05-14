@@ -1,20 +1,41 @@
+'use client';
+
 import Nav from './components/Nav';
+import { useGsapPageScroll } from './hooks/useGsapPageScroll';
 
 export default function Home() {
+  const mainRef = useGsapPageScroll();
+
   return (
-    <main style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
+    <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
       <Nav />
 
       {/* HERO */}
-      <section style={{position:'relative', width:'100vw', height:'100vh', background:'#EDEBE5', overflow:'hidden'}}>
-        <img src="/hero.png" alt="Razor Tech Archive" style={{position:'absolute', top:0, left:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center'}} />
-        <div style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(237,235,229,0) 55%, rgba(237,235,229,0.85) 100%)', zIndex:5, pointerEvents:'none'}}></div>
-        <span className="hero-vert" style={{position:'absolute', left:24, top:'50%', transform:'translateY(-50%) rotate(180deg)', writingMode:'vertical-rl', fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7', zIndex:10}}>Archive</span>
-        <div className="hero-title-block" style={{position:'absolute', left:48, top:'50%', transform:'translateY(-50%)', zIndex:10}}>
-          <p className="hero-title-en" style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, fontWeight:300, fontStyle:'italic', lineHeight:1.5, marginBottom:14, color:'#9A948C'}}>Precision has no language.</p>
-          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, letterSpacing:'0.3em', color:'#9A948C'}}>感覚を理論へ。</p>
+      <section className="about-page-top" style={{position:'relative', width:'100vw', height:'100vh', background:'#EDEBE5', overflow:'hidden'}}>
+        <div className="about-parallax-wrap" style={{position:'absolute', inset:0, overflow:'hidden'}}>
+          <img
+            src="/hero.png"
+            alt="Razor Tech Archive"
+            style={{
+              position:'absolute',
+              left:0,
+              top:'-7.5%',
+              width:'100%',
+              height:'115%',
+              objectFit:'cover',
+              objectPosition:'center',
+              display:'block',
+              willChange:'transform',
+            }}
+          />
         </div>
-        <div className="hero-bottom" style={{position:'absolute', bottom:40, left:0, right:0, padding:'0 48px', display:'flex', alignItems:'flex-end', justifyContent:'flex-end', zIndex:10}}>
+        <div style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(237,235,229,0) 55%, rgba(237,235,229,0.85) 100%)', zIndex:5, pointerEvents:'none'}}></div>
+        <span className="hero-vert about-fade-up" style={{position:'absolute', left:24, top:'50%', transform:'translateY(-50%) rotate(180deg)', writingMode:'vertical-rl', fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7', zIndex:10}}>Archive</span>
+        <div className="hero-title-block" style={{position:'absolute', left:48, top:'50%', transform:'translateY(-50%)', zIndex:10}}>
+          <p className="hero-title-en about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, fontWeight:300, fontStyle:'italic', lineHeight:1.5, marginBottom:14, color:'#9A948C'}}>Precision has no language.</p>
+          <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, letterSpacing:'0.3em', color:'#9A948C'}}>感覚を理論へ。</p>
+        </div>
+        <div className="hero-bottom about-fade-up" style={{position:'absolute', bottom:40, left:0, right:0, padding:'0 48px', display:'flex', alignItems:'flex-end', justifyContent:'flex-end', zIndex:10}}>
           <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:12}}>
             <span style={{fontFamily:"'DM Sans', sans-serif", fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(28,26,23,0.5)', writingMode:'vertical-rl'}}>Scroll</span>
             <div style={{
@@ -28,7 +49,7 @@ export default function Home() {
       </section>
 
       {/* TICKER */}
-      <div style={{borderTop:'1px solid #C4BFB7', borderBottom:'1px solid #C4BFB7', padding:'13px 0', overflow:'hidden'}}>
+      <div className="about-fade-up" style={{borderTop:'1px solid #C4BFB7', borderBottom:'1px solid #C4BFB7', padding:'13px 0', overflow:'hidden'}}>
         <div style={{display:'flex', gap:60, animation:'tick 28s linear infinite', whiteSpace:'nowrap'}}>
           {['Razor Tech Archive','Stealth Cut','Precision Has No Language','感覚を理論へ','From Sensation to Theory','Razor Tech Archive','Stealth Cut','Precision Has No Language','感覚を理論へ','From Sensation to Theory'].map((t,i) => (
             <span key={i} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#9A948C', flexShrink:0}}>{t} &nbsp;✦&nbsp; </span>
@@ -38,7 +59,7 @@ export default function Home() {
 
       {/* SEMINAR */}
       <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Upcoming Seminars
         </div>
@@ -47,7 +68,7 @@ export default function Home() {
           {num:'02', date:'2026.07.20', name:'Advanced Razor Tech', loc:'東京 / TBA', price:'¥24,000'},
           {num:'03', date:'Coming Soon', name:'始考 Vol. 03', loc:'場所未定', price:'——', dim:true},
         ].map(s => (
-          <a key={s.num} href="/seminar" className="seminar-item" style={{display:'grid', gridTemplateColumns:'180px 1fr auto auto', alignItems:'center', gap:48, padding:'36px 0', borderBottom:'1px solid #C4BFB7', textDecoration:'none', color:'#1C1A17', opacity: s.dim ? 0.35 : 1}}>
+          <a key={s.num} href="/seminar" className="seminar-item about-fade-up" style={{display:'grid', gridTemplateColumns:'180px 1fr auto auto', alignItems:'center', gap:48, padding:'36px 0', borderBottom:'1px solid #C4BFB7', textDecoration:'none', color:'#1C1A17', opacity: s.dim ? 0.35 : 1}}>
             <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{s.num} — {s.date}</span>
             <span className="seminar-name" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.4vw,30px)', fontWeight:300, color:'#1C1A17'}}>{s.name}</span>
             <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'#9A948C', letterSpacing:'0.08em'}}>{s.loc}</span>
@@ -58,23 +79,23 @@ export default function Home() {
 
       {/* ABOUT */}
       <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           About
         </div>
         <div className="about-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:120}}>
           <div>
-            <div className="about-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
+            <div className="about-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
               The Art<br/>of <em style={{fontStyle:'italic', color:'#C9956A'}}>Stealth</em><br/>Cut
             </div>
-            <div style={{width:72, height:72, border:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'center'}}>
+            <div className="about-fade-up" style={{width:72, height:72, border:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'center'}}>
               <div style={{width:44, height:44, borderRadius:'50%', border:'1px solid #C4BFB7'}}></div>
             </div>
           </div>
           <div style={{paddingTop:8}}>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>Razor Tech Archive（RTA）は、レザーカット技術の教育・普及を専門とする教育プラットフォームです。</p>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}><strong style={{color:'#1C1A17', fontWeight:300}}>「stealth cut」</strong>——音もなく、摩擦もなく、ただ正確に。フクロウの飛翔のように静寂の中に宿る技術を、理論と感覚の両軸から追求する。</p>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>セミナー、アーカイブコンテンツ、技術者コミュニティを通じて、カット技術の新しい基準を提案します。</p>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>Razor Tech Archive（RTA）は、レザーカット技術の教育・普及を専門とする教育プラットフォームです。</p>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}><strong style={{color:'#1C1A17', fontWeight:300}}>「stealth cut」</strong>——音もなく、摩擦もなく、ただ正確に。フクロウの飛翔のように静寂の中に宿る技術を、理論と感覚の両軸から追求する。</p>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>セミナー、アーカイブコンテンツ、技術者コミュニティを通じて、カット技術の新しい基準を提案します。</p>
           </div>
         </div>
       </section>
@@ -83,19 +104,19 @@ export default function Home() {
       <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
         <div className="members-banner" style={{border:'1px solid #C4BFB7', padding:'100px 80px', display:'flex', alignItems:'center', justifyContent:'space-between', gap:60, position:'relative', overflow:'hidden'}}>
           <div>
-            <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:28, display:'flex', alignItems:'center', gap:16}}>
+            <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:28, display:'flex', alignItems:'center', gap:16}}>
               <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
               Members
             </div>
-            <h2 className="members-heading" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px,4vw,56px)', fontWeight:200, lineHeight:1.0, marginBottom:20, letterSpacing:'-0.01em', whiteSpace:'nowrap'}}>Join the<br/>Archive</h2>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#9A948C', lineHeight:2, maxWidth:400}}>会員限定コンテンツ、オンラインセミナー、アプリへのアクセス。技術を深める場所がここにあります。</p>
+            <h2 className="members-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px,4vw,56px)', fontWeight:200, lineHeight:1.0, marginBottom:20, letterSpacing:'-0.01em', whiteSpace:'nowrap'}}>Join the<br/>Archive</h2>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#9A948C', lineHeight:2, maxWidth:400}}>会員限定コンテンツ、オンラインセミナー、アプリへのアクセス。技術を深める場所がここにあります。</p>
           </div>
-          <a href="/members" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'20px 52px', textDecoration:'none', whiteSpace:'nowrap', flexShrink:0}}>Join Now</a>
+          <a href="/members" className="about-fade-up" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'20px 52px', textDecoration:'none', whiteSpace:'nowrap', flexShrink:0}}>Join Now</a>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="site-footer" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
         <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>

@@ -1,8 +1,10 @@
 'use client';
 import { useState } from 'react';
 import Nav from '../components/Nav';
+import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 export default function MembersPage() {
+  const mainRef = useGsapPageScroll();
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -18,11 +20,11 @@ export default function MembersPage() {
   };
 
   return (
-    <main style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
+    <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
       <Nav />
 
       {/* HERO */}
-      <section className="members-hero" style={{minHeight:'100vh', padding:'180px 80px 120px', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', position:'relative', textAlign:'center'}}>
+      <section className="members-hero about-page-top" style={{minHeight:'100vh', padding:'180px 80px 120px', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', position:'relative', textAlign:'center'}}>
 
         {/* Decorative geometry */}
         <div aria-hidden="true" style={{position:'absolute', top:'18%', left:'12%', width:120, height:120, border:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'center', opacity:0.6}}>
@@ -31,25 +33,25 @@ export default function MembersPage() {
         <div aria-hidden="true" style={{position:'absolute', bottom:'14%', right:'10%', width:1, height:120, background:'#C4BFB7', opacity:0.7}}></div>
         <div aria-hidden="true" style={{position:'absolute', top:'30%', right:'18%', width:8, height:8, borderRadius:'50%', background:'#C9956A', opacity:0.8}}></div>
 
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:48, display:'flex', alignItems:'center', gap:16}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:48, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Members — Coming 2026
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
         </div>
 
-        <h1 className="members-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
+        <h1 className="members-title about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
           <em style={{fontStyle:'italic', color:'#C9956A'}}>Coming</em><br/>Soon.
         </h1>
 
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:14, fontStyle:'italic', color:'#9A948C', lineHeight:2, maxWidth:520, marginBottom:14}}>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:14, fontStyle:'italic', color:'#9A948C', lineHeight:2, maxWidth:520, marginBottom:14}}>
           会員制プラットフォームは、まもなく公開されます。
         </p>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#9A948C', lineHeight:2.1, maxWidth:480, marginBottom:64}}>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#9A948C', lineHeight:2.1, maxWidth:480, marginBottom:64}}>
           オンラインセミナー、アーカイブ動画、技術者同士のクローズドな対話。Stealth cut の継続的な学びの場を、招待制で提供します。
         </p>
 
         {/* Email Registration Form */}
-        <div className="members-form-wrap" style={{width:'100%', maxWidth:480}}>
+        <div className="members-form-wrap about-fade-up" style={{width:'100%', maxWidth:480}}>
           {submitted ? (
             <div style={{border:'1px solid #C9956A', padding:'28px 24px', background:'#E5E2DA', display:'flex', alignItems:'center', gap:14, justifyContent:'center'}}>
               <span style={{width:6, height:6, borderRadius:'50%', background:'#C9956A', display:'inline-block'}}></span>
@@ -110,7 +112,7 @@ export default function MembersPage() {
 
       {/* PREVIEW */}
       <section className="section-pad" style={{padding:'120px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           What's Inside
         </div>
@@ -121,7 +123,7 @@ export default function MembersPage() {
             { num:'02', label:'Live Sessions', desc:'毎月1回のオンライン勉強会。事例の共有と質疑応答。' },
             { num:'03', label:'Private Forum', desc:'会員同士が技術を持ち寄り、議論するクローズドな場。' },
           ].map((f) => (
-            <div key={f.num} style={{borderTop:'1px solid #C4BFB7', paddingTop:24}}>
+            <div key={f.num} className="about-fade-up" style={{borderTop:'1px solid #C4BFB7', paddingTop:24}}>
               <div style={{fontSize:9, color:'#C9956A', letterSpacing:'0.32em', marginBottom:18}}>— {f.num}</div>
               <h3 style={{fontFamily:'Cormorant Garamond, serif', fontSize:22, fontWeight:300, marginBottom:12, letterSpacing:'-0.01em'}}>{f.label}</h3>
               <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:2, color:'#9A948C'}}>{f.desc}</p>
@@ -131,7 +133,7 @@ export default function MembersPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="site-footer" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
         <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>

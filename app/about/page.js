@@ -1,11 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
 import Nav from '../components/Nav';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const pillars = [
   {
@@ -29,76 +25,7 @@ const pillars = [
 ];
 
 export default function AboutPage() {
-  const mainRef = useRef(null);
-
-  useEffect(() => {
-    const root = mainRef.current;
-    if (!root) return;
-
-    const ctx = gsap.context(() => {
-      const fadeUpEls = root.querySelectorAll('.about-fade-up');
-      const titleEl = root.querySelector('.about-animate-title');
-      const parallaxWraps = root.querySelectorAll('.about-parallax-wrap');
-
-      gsap.set(fadeUpEls, { opacity: 0, y: 56 });
-      if (titleEl) {
-        gsap.set(titleEl, { opacity: 0, x: -72 });
-      }
-
-      fadeUpEls.forEach((el) => {
-        gsap.to(el, {
-          opacity: 1,
-          y: 0,
-          duration: 0.95,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            end: 'top 60%',
-            toggleActions: 'play none none none',
-          },
-        });
-      });
-
-      if (titleEl) {
-        gsap.to(titleEl, {
-          opacity: 1,
-          x: 0,
-          duration: 1.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: titleEl.closest('.about-page-top') ?? titleEl,
-            start: 'top 82%',
-            end: 'top 55%',
-            toggleActions: 'play none none none',
-          },
-        });
-      }
-
-      parallaxWraps.forEach((wrap) => {
-        const img = wrap.querySelector('img');
-        if (!img) return;
-        gsap.fromTo(
-          img,
-          { y: -64 },
-          {
-            y: 64,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: wrap,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1,
-            },
-          }
-        );
-      });
-    }, root);
-
-    return () => {
-      ctx.revert();
-    };
-  }, []);
+  const mainRef = useGsapPageScroll();
 
   return (
     <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
