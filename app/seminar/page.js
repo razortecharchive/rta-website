@@ -170,30 +170,124 @@ export default function SeminarPage() {
         ))}
       </section>
 
-      {/* ABOUT PHOTO with CTA overlay */}
-      <div className="seminar-about-photo about-parallax-wrap" style={{position:'relative', width:'100%', height:'50vh', overflow:'hidden', borderTop:'1px solid #C4BFB7'}}>
-        <img
-          src="/seminar-about.jpg"
-          alt="精密なカットと仕上がり — RTA セッション"
+      {/* CTA — full-bleed photo like hero */}
+      <section
+        className="seminar-cta-hero"
+        style={{
+          position:'relative',
+          width:'100%',
+          height:'70vh',
+          minHeight:420,
+          overflow:'hidden',
+          borderTop:'1px solid #C4BFB7',
+          borderBottom:'1px solid #C4BFB7',
+        }}
+      >
+        <div className="about-parallax-wrap" style={{position:'absolute', inset:0}}>
+          <img
+            src="/seminar-about.jpg"
+            alt="精密なカットと仕上がり — RTA セッション"
+            style={{
+              position:'absolute',
+              left:0,
+              top:'-7.5%',
+              width:'100%',
+              height:'115%',
+              objectFit:'cover',
+              objectPosition:'center',
+              display:'block',
+              willChange:'transform',
+            }}
+          />
+        </div>
+        <div
+          aria-hidden="true"
           style={{
             position:'absolute',
-            left:0,
-            top:'-7.5%',
-            width:'100%',
-            height:'115%',
-            objectFit:'cover',
-            objectPosition:'center',
-            display:'block',
-            willChange:'transform',
+            inset:0,
+            background:'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(237,235,229,0.3) 70%, rgba(237,235,229,1) 100%)',
+            zIndex:5,
+            pointerEvents:'none',
           }}
         />
-        <div aria-hidden="true" style={{position:'absolute', top:0, left:0, right:0, height:80, background:'linear-gradient(to bottom, #EDEBE5, transparent)', pointerEvents:'none', zIndex:1}}></div>
-        <div aria-hidden="true" style={{position:'absolute', bottom:0, left:0, right:0, height:80, background:'linear-gradient(to top, #EDEBE5, transparent)', pointerEvents:'none', zIndex:1}}></div>
-        <div className="about-fade-up" style={{position:'absolute', inset:0, zIndex:10, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:24, textAlign:'center', padding:'0 24px'}}>
-          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, fontStyle:'italic', color:'#FFFFFF', lineHeight:1.8, opacity:0.85}}>新しいセッション情報を、いち早く受け取る。</p>
-          <a href="/members" style={{display:'inline-block', fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color:'#FFFFFF', border:'1px solid rgba(255,255,255,0.6)', padding:'18px 44px', textDecoration:'none'}}>Join the Archive →</a>
+
+        <div
+          className="seminar-cta-content"
+          style={{
+            position:'absolute',
+            inset:0,
+            zIndex:10,
+            display:'flex',
+            flexDirection:'column',
+            justifyContent:'center',
+            padding:'180px 80px 80px',
+          }}
+        >
+          <div
+            className="about-fade-up"
+            style={{
+              fontSize:8,
+              letterSpacing:'0.45em',
+              textTransform:'uppercase',
+              color:'#FFFFFF',
+              marginBottom:36,
+              display:'flex',
+              alignItems:'center',
+              gap:16,
+              opacity:0.85,
+            }}
+          >
+            <span style={{width:18, height:1, background:'#FFFFFF', display:'inline-block', opacity:0.7}} />
+            Archive — Members
+          </div>
+          <h2
+            className="about-fade-up"
+            style={{
+              fontFamily:'Cormorant Garamond, serif',
+              fontSize:'clamp(28px, 3vw, 42px)',
+              fontWeight:200,
+              lineHeight:1.05,
+              letterSpacing:'-0.02em',
+              marginBottom:28,
+              color:'#FFFFFF',
+            }}
+          >
+            Join the<br />
+            <em style={{fontStyle:'italic', color:'#FFFFFF'}}>Archive</em>
+          </h2>
+          <p
+            className="about-fade-up"
+            style={{
+              fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
+              fontSize:13,
+              color:'#FFFFFF',
+              lineHeight:2.1,
+              maxWidth:560,
+              opacity:0.85,
+              marginBottom:40,
+            }}
+          >
+            新しいセッション情報を、いち早く受け取る。
+          </p>
+          <div className="about-fade-up">
+            <a
+              href="/members"
+              style={{
+                display:'inline-block',
+                fontSize:9,
+                letterSpacing:'0.32em',
+                textTransform:'uppercase',
+                color:'#FFFFFF',
+                border:'1px solid rgba(255,255,255,0.6)',
+                padding:'18px 44px',
+                textDecoration:'none',
+              }}
+            >
+              Join the Archive →
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* FOOTER */}
       <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
@@ -238,6 +332,13 @@ export default function SeminarPage() {
           }
           .past-row > span:nth-child(4) {
             grid-column: 1 / -1 !important;
+          }
+          .seminar-cta-hero {
+            height: 60vh !important;
+            min-height: 380px !important;
+          }
+          .seminar-cta-content {
+            padding: 140px 24px 48px !important;
           }
         }
       `}</style>
