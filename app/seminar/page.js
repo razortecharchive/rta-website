@@ -155,11 +155,15 @@ export default function SeminarPage() {
 
       {/* ABOUT PHOTO (above Join the Archive) */}
       <section className="seminar-about-photo" style={{width:'100%', height:'50vh', overflow:'hidden'}}>
-        <img
-          src="/seminar-about.jpg"
-          alt="精密なカットと仕上がり — RTA セッション"
-          style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}
-        />
+        <div style={{position:'relative', width:'100%', height:'100%'}}>
+          <img
+            src="/seminar-about.jpg"
+            alt="精密なカットと仕上がり — RTA セッション"
+            style={{width:'100%', height:'100%', objectFit:'cover', objectPosition:'center', display:'block'}}
+          />
+          <div aria-hidden="true" style={{position:'absolute', top:0, left:0, right:0, height:80, background:'linear-gradient(to bottom, #EDEBE5, transparent)', pointerEvents:'none'}}></div>
+          <div aria-hidden="true" style={{position:'absolute', bottom:0, left:0, right:0, height:80, background:'linear-gradient(to top, #EDEBE5, transparent)', pointerEvents:'none'}}></div>
+        </div>
       </section>
 
       {/* CTA */}
