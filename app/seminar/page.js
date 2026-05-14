@@ -170,8 +170,8 @@ export default function SeminarPage() {
         ))}
       </section>
 
-      {/* ABOUT PHOTO (above Join the Archive) */}
-      <div className="seminar-about-photo about-parallax-wrap" style={{position:'relative', width:'100%', height:'50vh', overflow:'hidden'}}>
+      {/* ABOUT PHOTO with CTA overlay */}
+      <div className="seminar-about-photo about-parallax-wrap" style={{position:'relative', width:'100%', height:'50vh', overflow:'hidden', borderTop:'1px solid #C4BFB7'}}>
         <img
           src="/seminar-about.jpg"
           alt="精密なカットと仕上がり — RTA セッション"
@@ -189,15 +189,11 @@ export default function SeminarPage() {
         />
         <div aria-hidden="true" style={{position:'absolute', top:0, left:0, right:0, height:80, background:'linear-gradient(to bottom, #EDEBE5, transparent)', pointerEvents:'none', zIndex:1}}></div>
         <div aria-hidden="true" style={{position:'absolute', bottom:0, left:0, right:0, height:80, background:'linear-gradient(to top, #EDEBE5, transparent)', pointerEvents:'none', zIndex:1}}></div>
-      </div>
-
-      {/* CTA */}
-      <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div className="about-fade-up" style={{textAlign:'center'}}>
-          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, fontStyle:'italic', color:'#9A948C', marginBottom:24, lineHeight:1.8}}>新しいセッション情報を、いち早く受け取る。</p>
-          <a href="/members" style={{display:'inline-block', fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'18px 44px', textDecoration:'none'}}>Join the Archive →</a>
+        <div className="about-fade-up" style={{position:'absolute', inset:0, zIndex:10, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:24, textAlign:'center', padding:'0 24px'}}>
+          <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, fontStyle:'italic', color:'#FFFFFF', lineHeight:1.8, opacity:0.85}}>新しいセッション情報を、いち早く受け取る。</p>
+          <a href="/members" style={{display:'inline-block', fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color:'#FFFFFF', border:'1px solid rgba(255,255,255,0.6)', padding:'18px 44px', textDecoration:'none'}}>Join the Archive →</a>
         </div>
-      </section>
+      </div>
 
       {/* FOOTER */}
       <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
