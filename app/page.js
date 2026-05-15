@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Nav from './components/Nav';
 import { useGsapPageScroll } from './hooks/useGsapPageScroll';
 
@@ -13,18 +14,20 @@ export default function Home() {
       {/* HERO */}
       <section className="about-page-top" style={{position:'relative', width:'100vw', height:'100vh', background:'#EDEBE5', overflow:'hidden'}}>
         <div className="about-parallax-wrap" style={{position:'absolute', inset:0, overflow:'hidden'}}>
-          <img
+          <Image
             src="/hero.png"
             alt="Razor Tech Archive"
+            fill
+            quality={100}
+            priority
+            sizes="100vw"
             style={{
-              position:'absolute',
-              left:0,
-              top:'-7.5%',
-              width:'100%',
-              height:'115%',
               objectFit:'cover',
               objectPosition:'center',
-              display:'block',
+              top:'-7.5%',
+              left:0,
+              width:'100%',
+              height:'115%',
               willChange:'transform',
             }}
           />

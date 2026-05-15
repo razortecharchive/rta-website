@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Nav from '../components/Nav';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
@@ -84,18 +85,20 @@ export default function SeminarPage() {
       {/* HERO PHOTO */}
       <section className="seminar-hero" style={{position:'relative', width:'100%', height:'70vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
         <div className="about-parallax-wrap" style={{position:'absolute', inset:0}}>
-          <img
+          <Image
             src="/seminar-hero.jpg"
             alt="Razor Tech Archive — Seminars & Sessions"
+            fill
+            quality={100}
+            priority
+            sizes="100vw"
             style={{
-              position:'absolute',
-              left:0,
-              top:'-7.5%',
-              width:'100%',
-              height:'115%',
               objectFit:'cover',
               objectPosition:'center',
-              display:'block',
+              top:'-7.5%',
+              left:0,
+              width:'100%',
+              height:'115%',
               willChange:'transform',
             }}
           />
@@ -184,18 +187,19 @@ export default function SeminarPage() {
         }}
       >
         <div className="about-parallax-wrap" style={{position:'absolute', inset:0}}>
-          <img
+          <Image
             src="/seminar-about.jpg"
             alt="精密なカットと仕上がり — RTA セッション"
+            fill
+            quality={100}
+            sizes="100vw"
             style={{
-              position:'absolute',
-              left:0,
-              top:'-7.5%',
-              width:'100%',
-              height:'115%',
               objectFit:'cover',
               objectPosition:'center',
-              display:'block',
+              top:'-7.5%',
+              left:0,
+              width:'100%',
+              height:'115%',
               willChange:'transform',
             }}
           />

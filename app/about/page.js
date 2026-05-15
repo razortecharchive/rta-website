@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Nav from '../components/Nav';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
@@ -51,18 +52,19 @@ export default function AboutPage() {
 
       {/* 3. IMAGE about-2 — parallax */}
       <div className="about-parallax-wrap about-photo-2" style={{position:'relative', width:'100%', height:'70vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
-        <img
+        <Image
           src="/about-2.jpg"
           alt="Razor Tech Archive — セッション風景"
+          fill
+          quality={100}
+          sizes="100vw"
           style={{
-            position:'absolute',
-            left:0,
-            top:'-7.5%',
-            width:'100%',
-            height:'115%',
             objectFit:'cover',
             objectPosition:'center',
-            display:'block',
+            top:'-7.5%',
+            left:0,
+            width:'100%',
+            height:'115%',
             willChange:'transform',
           }}
         />
@@ -91,18 +93,19 @@ export default function AboutPage() {
 
       {/* 5. IMAGE about-1 — parallax */}
       <div className="about-parallax-wrap about-photo-1" style={{position:'relative', width:'100%', height:'60vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
-        <img
+        <Image
           src="/about-1.jpg"
           alt="Razor Tech Archive — コンセプトビジュアル"
+          fill
+          quality={100}
+          sizes="100vw"
           style={{
-            position:'absolute',
-            left:0,
-            top:'-7.5%',
-            width:'100%',
-            height:'115%',
             objectFit:'cover',
             objectPosition:'center',
-            display:'block',
+            top:'-7.5%',
+            left:0,
+            width:'100%',
+            height:'115%',
             willChange:'transform',
           }}
         />
