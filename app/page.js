@@ -1,11 +1,62 @@
 'use client';
 
 import Image from 'next/image';
+import { useMemo } from 'react';
 import Nav from './components/Nav';
+import { useLang } from './context/LangContext';
 import { useGsapPageScroll } from './hooks/useGsapPageScroll';
 
 export default function Home() {
   const mainRef = useGsapPageScroll();
+  const { lang } = useLang();
+
+  const tickerItems = useMemo(
+    () =>
+      lang === 'ja'
+        ? [
+            'Razor Tech Archive',
+            'Stealth Cut',
+            '精密には言語がない',
+            '感覚を理論へ',
+            '感覚から理論へ',
+            'Razor Tech Archive',
+            'Stealth Cut',
+            '精密には言語がない',
+            '感覚を理論へ',
+            '感覚から理論へ',
+          ]
+        : [
+            'Razor Tech Archive',
+            'Stealth Cut',
+            'Precision Has No Language',
+            'From Sensation to Theory',
+            'From Sensation to Theory',
+            'Razor Tech Archive',
+            'Stealth Cut',
+            'Precision Has No Language',
+            'From Sensation to Theory',
+            'From Sensation to Theory',
+          ],
+    [lang]
+  );
+
+  const seminars = useMemo(
+    () =>
+      lang === 'ja'
+        ? [
+            { num: '01', date: '2026.06.15', name: 'Razor Basics Vol. 03', loc: '福岡 / ill 天神大名', price: '¥18,000' },
+            { num: '02', date: '2026.07.20', name: 'Advanced Razor Tech', loc: '東京 / TBA', price: '¥24,000' },
+            { num: '03', date: '近日公開', name: '始考 Vol. 03', loc: '場所未定', price: '——', dim: true },
+          ]
+        : [
+            { num: '01', date: '2026.06.15', name: 'Razor Basics Vol. 03', loc: 'Fukuoka / ill Tenjin-Daimyo', price: '¥18,000' },
+            { num: '02', date: '2026.07.20', name: 'Advanced Razor Tech', loc: 'Tokyo / TBA', price: '¥24,000' },
+            { num: '03', date: 'Coming Soon', name: 'Shikō Vol. 03', loc: 'Venue TBA', price: '——', dim: true },
+          ],
+    [lang]
+  );
+
+  const isJa = lang === 'ja';
 
   return (
     <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
@@ -33,14 +84,22 @@ export default function Home() {
           />
         </div>
         <div style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(237,235,229,0) 55%, rgba(237,235,229,0.85) 100%)', zIndex:5, pointerEvents:'none'}}></div>
-        <span className="hero-vert about-fade-up" style={{position:'absolute', left:24, top:'50%', transform:'translateY(-50%) rotate(180deg)', writingMode:'vertical-rl', fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7', zIndex:10}}>Archive</span>
+        <span className="hero-vert about-fade-up" style={{position:'absolute', left:24, top:'50%', transform:'translateY(-50%) rotate(180deg)', writingMode:'vertical-rl', fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7', zIndex:10}}>
+          {isJa ? 'アーカイブ' : 'Archive'}
+        </span>
         <div className="hero-title-block" style={{position:'absolute', left:48, top:'60%', transform:'translateY(-50%)', zIndex:10}}>
-          <p className="hero-title-en about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, fontWeight:300, fontStyle:'italic', lineHeight:1.5, marginBottom:14, color:'#9A948C'}}>Precision has no language.</p>
-          <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, letterSpacing:'0.3em', color:'#9A948C'}}>感覚を理論へ。</p>
+          <p className="hero-title-en about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, fontWeight:300, fontStyle:'italic', lineHeight:1.5, marginBottom:14, color:'#9A948C'}}>
+            {isJa ? '精密には、言語がない。' : 'Precision has no language.'}
+          </p>
+          <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, letterSpacing:'0.3em', color:'#9A948C'}}>
+            {isJa ? '感覚を理論へ。' : 'From sensation to theory.'}
+          </p>
         </div>
         <div className="hero-bottom about-fade-up" style={{position:'absolute', bottom:40, left:0, right:0, padding:'0 48px', display:'flex', alignItems:'flex-end', justifyContent:'flex-end', zIndex:10}}>
           <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:12}}>
-            <span style={{fontFamily:"'DM Sans', sans-serif", fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(28,26,23,0.5)', writingMode:'vertical-rl'}}>Scroll</span>
+            <span style={{fontFamily:"'DM Sans', sans-serif", fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(28,26,23,0.5)', writingMode:'vertical-rl'}}>
+              {isJa ? 'スクロール' : 'Scroll'}
+            </span>
             <div style={{
               width:1,
               height:52,
@@ -54,8 +113,8 @@ export default function Home() {
       {/* TICKER */}
       <div className="about-fade-up" style={{borderTop:'1px solid #C4BFB7', borderBottom:'1px solid #C4BFB7', padding:'13px 0', overflow:'hidden'}}>
         <div style={{display:'flex', gap:60, animation:'tick 28s linear infinite', whiteSpace:'nowrap'}}>
-          {['Razor Tech Archive','Stealth Cut','Precision Has No Language','感覚を理論へ','From Sensation to Theory','Razor Tech Archive','Stealth Cut','Precision Has No Language','感覚を理論へ','From Sensation to Theory'].map((t,i) => (
-            <span key={i} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#9A948C', flexShrink:0}}>{t} &nbsp;✦&nbsp; </span>
+          {tickerItems.map((t, i) => (
+            <span key={`${lang}-${i}`} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#9A948C', flexShrink:0}}>{t} &nbsp;✦&nbsp; </span>
           ))}
         </div>
       </div>
@@ -64,13 +123,9 @@ export default function Home() {
       <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
         <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
-          Upcoming Seminars
+          {isJa ? '開催予定のセミナー' : 'Upcoming Seminars'}
         </div>
-        {[
-          {num:'01', date:'2026.06.15', name:'Razor Basics Vol. 03', loc:'福岡 / ill 天神大名', price:'¥18,000'},
-          {num:'02', date:'2026.07.20', name:'Advanced Razor Tech', loc:'東京 / TBA', price:'¥24,000'},
-          {num:'03', date:'Coming Soon', name:'始考 Vol. 03', loc:'場所未定', price:'——', dim:true},
-        ].map(s => (
+        {seminars.map((s) => (
           <a key={s.num} href="/seminar" className="seminar-item about-fade-up" style={{display:'grid', gridTemplateColumns:'180px 1fr auto auto', alignItems:'center', gap:48, padding:'36px 0', borderBottom:'1px solid #C4BFB7', textDecoration:'none', color:'#1C1A17', opacity: s.dim ? 0.35 : 1}}>
             <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{s.num} — {s.date}</span>
             <span className="seminar-name" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.4vw,30px)', fontWeight:300, color:'#1C1A17'}}>{s.name}</span>
@@ -84,21 +139,57 @@ export default function Home() {
       <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
         <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
-          About
+          {isJa ? 'アバウト' : 'About'}
         </div>
         <div className="about-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:120}}>
           <div>
             <div className="about-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
-              The Art<br/>of <em style={{fontStyle:'italic', color:'#C9956A'}}>Stealth</em><br/>Cut
+              {isJa ? (
+                <>
+                  刃の思想
+                  <br />
+                  <em style={{fontStyle:'italic', color:'#C9956A'}}>ステルス</em>
+                  <br />
+                  カット
+                </>
+              ) : (
+                <>
+                  The Art
+                  <br />
+                  of <em style={{fontStyle:'italic', color:'#C9956A'}}>Stealth</em>
+                  <br />
+                  Cut
+                </>
+              )}
             </div>
             <div className="about-fade-up" style={{width:72, height:72, border:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'center'}}>
               <div style={{width:44, height:44, borderRadius:'50%', border:'1px solid #C4BFB7'}}></div>
             </div>
           </div>
           <div style={{paddingTop:8}}>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>Razor Tech Archive（RTA）は、レザーカット技術の教育・普及を専門とする教育プラットフォームです。</p>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}><strong style={{color:'#1C1A17', fontWeight:300}}>「stealth cut」</strong>——音もなく、摩擦もなく、ただ正確に。フクロウの飛翔のように静寂の中に宿る技術を、理論と感覚の両軸から追求する。</p>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>セミナー、アーカイブコンテンツ、技術者コミュニティを通じて、カット技術の新しい基準を提案します。</p>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>
+              {isJa
+                ? 'Razor Tech Archive（RTA）は、レザーカット技術の教育・普及を専門とする教育プラットフォームです。'
+                : 'Razor Tech Archive (RTA) is an educational platform dedicated to teaching and advancing razor cutting.'}
+            </p>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>
+              {isJa ? (
+                <>
+                  <strong style={{color:'#1C1A17', fontWeight:300}}>「stealth cut」</strong>
+                  ——音もなく、摩擦もなく、ただ正確に。フクロウの飛翔のように静寂の中に宿る技術を、理論と感覚の両軸から追求する。
+                </>
+              ) : (
+                <>
+                  <strong style={{color:'#1C1A17', fontWeight:300}}>“stealth cut”</strong>
+                  — quiet, frictionless, exact. Like an owl in flight, the technique lives in stillness; we pursue it through both theory and sensation.
+                </>
+              )}
+            </p>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>
+              {isJa
+                ? 'セミナー、アーカイブコンテンツ、技術者コミュニティを通じて、カット技術の新しい基準を提案します。'
+                : 'Through seminars, archive content, and a community of practitioners, we propose a new baseline for cutting craft.'}
+            </p>
           </div>
         </div>
       </section>
@@ -109,12 +200,32 @@ export default function Home() {
           <div>
             <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:28, display:'flex', alignItems:'center', gap:16}}>
               <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
-              Members
+              {isJa ? 'メンバーズ' : 'Members'}
             </div>
-            <h2 className="members-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px,4vw,56px)', fontWeight:200, lineHeight:1.0, marginBottom:20, letterSpacing:'-0.01em', whiteSpace:'nowrap'}}>Join the<br/>Archive</h2>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#9A948C', lineHeight:2, maxWidth:400}}>会員限定コンテンツ、オンラインセミナー、アプリへのアクセス。技術を深める場所がここにあります。</p>
+            <h2 className="members-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px,4vw,56px)', fontWeight:200, lineHeight:1.0, marginBottom:20, letterSpacing:'-0.01em', whiteSpace: isJa ? 'normal' : 'nowrap'}}>
+              {isJa ? (
+                <>
+                  アーカイブに
+                  <br />
+                  参加する
+                </>
+              ) : (
+                <>
+                  Join the
+                  <br />
+                  Archive
+                </>
+              )}
+            </h2>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#9A948C', lineHeight:2, maxWidth:400}}>
+              {isJa
+                ? '会員限定コンテンツ、オンラインセミナー、アプリへのアクセス。技術を深める場所がここにあります。'
+                : 'Members-only content, online seminars, and app access—where you deepen your craft.'}
+            </p>
           </div>
-          <a href="/members" className="about-fade-up" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'20px 52px', textDecoration:'none', whiteSpace:'nowrap', flexShrink:0}}>Join Now</a>
+          <a href="/members" className="about-fade-up" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'20px 52px', textDecoration:'none', whiteSpace:'nowrap', flexShrink:0}}>
+            {isJa ? '参加する' : 'Join Now'}
+          </a>
         </div>
       </section>
 

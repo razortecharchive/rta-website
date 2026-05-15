@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useLang } from '../context/LangContext';
 
 const menuItems = [
   ['01', 'Seminar', '/seminar'],
@@ -12,6 +13,7 @@ const menuItems = [
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { lang, setLang } = useLang();
 
   return (
     <>
@@ -24,7 +26,52 @@ export default function Nav() {
         <div style={{textAlign:'center', whiteSpace:'nowrap', minWidth:0}}>
           <a href="/" className="site-logo" style={{fontFamily:'Cormorant Garamond, serif', fontSize:11, letterSpacing:'0.2em', textTransform:'uppercase', whiteSpace:'nowrap', color:'#1C1A17', textDecoration:'none'}}>Razor Tech Archive</a>
         </div>
-        <div style={{display:'flex', gap:20, justifySelf:'end'}}>
+        <div style={{display:'flex', gap:14, alignItems:'center', justifySelf:'end', flexWrap:'wrap', justifyContent:'flex-end'}}>
+          <div
+            role="group"
+            aria-label="Language"
+            style={{
+              display:'inline-flex',
+              alignItems:'center',
+              gap:0,
+              fontFamily:'DM Sans, sans-serif',
+              fontSize:9,
+              letterSpacing:'0.18em',
+              textTransform:'uppercase',
+              border:'1px solid #C4BFB7',
+              background:'rgba(237,235,229,0.6)',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              style={{
+                padding:'8px 10px',
+                border:'none',
+                borderRight:'1px solid #C4BFB7',
+                background: lang === 'en' ? '#1C1A17' : 'transparent',
+                color: lang === 'en' ? '#EDEBE5' : '#1C1A17',
+                cursor:'pointer',
+                letterSpacing:'0.18em',
+              }}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang('ja')}
+              style={{
+                padding:'8px 10px',
+                border:'none',
+                background: lang === 'ja' ? '#1C1A17' : 'transparent',
+                color: lang === 'ja' ? '#EDEBE5' : '#1C1A17',
+                cursor:'pointer',
+                letterSpacing:'0.18em',
+              }}
+            >
+              JP
+            </button>
+          </div>
           <button aria-label="Search" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           </button>
@@ -51,7 +98,21 @@ export default function Nav() {
             ))}
           </ul>
           <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-end'}}>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, fontStyle:'italic', color:'#9A948C', lineHeight:1.8}}>Precision has no language.<br/>感覚を理論へ。</p>
+            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, fontStyle:'italic', color:'#9A948C', lineHeight:1.8}}>
+              {lang === 'ja' ? (
+                <>
+                  精密には、言語がない。
+                  <br />
+                  感覚を理論へ。
+                </>
+              ) : (
+                <>
+                  Precision has no language.
+                  <br />
+                  From sensation to theory.
+                </>
+              )}
+            </p>
             <div style={{display:'flex', gap:28}}>
               <a href="#" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
               <a href="#" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>© 2026 RTA</a>
