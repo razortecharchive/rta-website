@@ -3,53 +3,64 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Nav from '../components/Nav';
+import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const products = [
   {
     id: 'razor-basics-vol-3',
-    name: 'Razor Basics Vol. 03 チケット',
+    nameJa: 'Razor Basics Vol. 03 チケット',
+    nameEn: 'Razor Basics Vol. 03 Ticket',
     price: 18000,
     category: 'Seminar',
     soldOut: false,
     buttonLabel: 'Get Ticket',
-    desc: 'レザーカット技術の基礎を体系的に学ぶ、入門編 第3弾。福岡 / ill 天神大名で開催。',
+    descJa: 'レザーカット技術の基礎を体系的に学ぶ、入門編 第3弾。福岡 / ill 天神大名で開催。',
+    descEn: 'Volume 3 of the introductory series on razor cutting fundamentals. Held in Fukuoka at ill Tenjin Daimyo.',
   },
   {
     id: 'advanced-razor-tech',
-    name: 'Advanced Razor Tech チケット',
+    nameJa: 'Advanced Razor Tech チケット',
+    nameEn: 'Advanced Razor Tech Ticket',
     price: 24000,
     category: 'Seminar',
     soldOut: false,
     buttonLabel: 'Get Ticket',
-    desc: '応用技術と理論を深く掘り下げる、経験者向けセッション。',
+    descJa: '応用技術と理論を深く掘り下げる、経験者向けセッション。',
+    descEn: 'An advanced session that deepens applied technique and theory for experienced practitioners.',
   },
   {
     id: 'rta-original-razor',
-    name: 'RTA Original Razor',
+    nameJa: 'RTA Original Razor',
+    nameEn: 'RTA Original Razor',
     price: 18000,
     category: 'Product',
     soldOut: true,
     buttonLabel: 'Purchase',
-    desc: 'Stealth cut のために設計されたオリジナルレザー。静寂と精度を支える一本。',
+    descJa: 'Stealth cut のために設計されたオリジナルレザー。静寂と精度を支える一本。',
+    descEn: 'An original razor designed for Stealth cut—a single tool that supports silence and precision.',
   },
   {
     id: 'rta-tote-bag',
-    name: 'RTA Tote Bag',
+    nameJa: 'RTA Tote Bag',
+    nameEn: 'RTA Tote Bag',
     price: 5500,
     category: 'Product',
     soldOut: true,
     buttonLabel: 'Purchase',
-    desc: 'ナチュラルキャンバスに型押しのロゴ。控えめな日々の相棒。',
+    descJa: 'ナチュラルキャンバスに型押しのロゴ。控えめな日々の相棒。',
+    descEn: 'Embossed logo on natural canvas. A quiet companion for everyday use.',
   },
   {
     id: 'rta-zine-vol-1',
-    name: 'RTA Zine Vol.01',
+    nameJa: 'RTA Zine Vol.01',
+    nameEn: 'RTA Zine Vol.01',
     price: 3300,
     category: 'Product',
     soldOut: true,
     buttonLabel: 'Purchase',
-    desc: '理論と感覚を綴じた、最初のアーカイブ印刷物。',
+    descJa: '理論と感覚を綴じた、最初のアーカイブ印刷物。',
+    descEn: 'The first printed archive—theory and sensation bound together.',
   },
 ];
 
@@ -57,6 +68,8 @@ export default function Shop() {
   const [loadingId, setLoadingId] = useState(null);
   const [success, setSuccess] = useState(false);
   const mainRef = useGsapPageScroll();
+  const { lang } = useLang();
+  const isEn = lang === 'en';
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -72,18 +85,18 @@ export default function Shop() {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productName: product.name, price: product.price }),
+        body: JSON.stringify({ productName: product.nameJa, price: product.price }),
       });
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert('チェックアウトを開始できませんでした。時間をおいて再度お試しください。');
+        alert(isEn ? 'Could not start checkout. Please try again later.' : 'チェックアウトを開始できませんでした。時間をおいて再度お試しください。');
         setLoadingId(null);
       }
     } catch (err) {
       console.error(err);
-      alert('ネットワークエラーが発生しました。');
+      alert(isEn ? 'A network error occurred.' : 'ネットワークエラーが発生しました。');
       setLoadingId(null);
     }
   };
@@ -94,7 +107,7 @@ export default function Shop() {
       {success && (
         <div style={{position:'fixed', top:96, left:'50%', transform:'translateX(-50%)', zIndex:250, background:'#E5E2DA', border:'1px solid #C9956A', padding:'16px 28px', display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:6, height:6, borderRadius:'50%', background:'#C9956A', display:'inline-block'}}></span>
-          <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#1C1A17'}}>ご注文ありがとうございました。</span>
+          <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#1C1A17'}}>{isEn ? 'Thank you for your order.' : 'ご注文ありがとうございました。'}</span>
           <button onClick={() => setSuccess(false)} style={{background:'none', border:'none', cursor:'pointer', color:'#9A948C', fontSize:14, paddingLeft:4}}>×</button>
         </div>
       )}
@@ -110,7 +123,11 @@ export default function Shop() {
         <h1 className="shop-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(48px,7vw,108px)', fontWeight:200, lineHeight:0.95, letterSpacing:'-0.02em', marginBottom:36}}>
           Razor Tech<br/><em style={{fontStyle:'italic', color:'#C9956A'}}>Archive</em> Shop
         </h1>
-        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:540}}>セミナーチケットと、Stealth cut の理論を支えるためのプロダクト群。技術を学び、道具として手元に置く。</p>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:540}}>
+          {isEn
+            ? 'Seminar tickets and products that support the theory of Stealth cut. Learn the technique—and keep the tools at hand.'
+            : 'セミナーチケットと、Stealth cut の理論を支えるためのプロダクト群。技術を学び、道具として手元に置く。'}
+        </p>
       </section>
 
       {/* PRODUCTS GRID */}
@@ -134,8 +151,8 @@ export default function Shop() {
                     </div>
                   )}
                 </div>
-                <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:14, letterSpacing:'-0.01em'}}>{p.name}</h2>
-                <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'#9A948C', marginBottom:32}}>{p.desc}</p>
+                <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:14, letterSpacing:'-0.01em'}}>{isEn ? p.nameEn : p.nameJa}</h2>
+                <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'#9A948C', marginBottom:32}}>{isEn ? p.descEn : p.descJa}</p>
                 <div style={{marginTop:'auto', paddingTop:24, borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, flexWrap:'wrap'}}>
                   <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:22, fontWeight:300}}>¥{p.price.toLocaleString()}</span>
                   <button

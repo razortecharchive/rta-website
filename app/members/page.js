@@ -1,6 +1,7 @@
 'use client';
 
 import Nav from '../components/Nav';
+import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const steps = [
@@ -8,77 +9,72 @@ const steps = [
     step: 'STEP 1',
     en: 'SEE',
     jp: '髪を観察する',
-    body: '毛流・骨格・毛量を読み、切る前の「見方」を身体に刻む。Archive では観察のプロセスを映像と言語で保存する。',
+    jpEn: 'Observe Hair',
+    goalJa: '切る前に見る',
+    goalEn: 'See before you cut',
   },
   {
     step: 'STEP 2',
     en: 'TOUCH',
     jp: '柔操作理論',
-    body: '力ではなく接触の質で毛束を導く。柔操作の理論を、手の重さと刃の角度として再現可能にする。',
+    jpEn: 'Soft Manipulation Theory',
+    goalJa: '硬い操作から抜ける',
+    goalEn: 'Move beyond rigid manipulation',
   },
   {
     step: 'STEP 3',
     en: 'FLOW',
     jp: 'CUT × DRY',
-    body: 'カットとドライを一つの流れとして設計。切断から仕上がりまで、連続した感覚で形を立ち上げる。',
+    jpEn: 'CUT × DRY',
+    goalJa: '自然に落ちるを作る',
+    goalEn: 'Create natural fall',
   },
   {
     step: 'STEP 4',
     en: 'DESIGN',
-    jp: 'デザイン設計',
-    body: '観察・操作・フローを統合し、人物に応じた設計図を描く。スタイルではなく、構造としてのデザイン。',
+    jp: 'Flow Design',
+    jpEn: 'Flow Design',
+    goalJa: '狙って柔らかくする',
+    goalEn: 'Soften with intention',
   },
   {
     step: 'STEP 5',
     en: 'EXPRESSION',
-    jp: '表現',
-    body: '技術を個の表現へ昇華する。保存された感覚を、現場の一瞬のカットとして取り出す。',
+    jp: 'Visual Design',
+    jpEn: 'Visual Design',
+    goalJa: '伝わる技術へ変える',
+    goalEn: 'Transform technique into communication',
   },
 ];
 
 const archiveTags = [
-  'SEE', 'TOUCH', 'FLOW', 'DESIGN', 'EXPRESSION',
-  'Stealth Cut', 'Razor', 'Dry', 'Theory', 'Session',
+  'ROOT', 'FLOW', 'DRY', 'SOFTNESS', 'TENSION',
+  'BOB', 'LAYER', 'WOLF', 'PERM', 'VISUAL',
 ];
 
 const plans = [
   {
     name: 'BASIC',
-    jp: 'ベーシック',
-    price: '¥3,300',
-    period: '/ month',
-    features: [
-      'Archive 動画の閲覧（限定カテゴリ）',
-      'タグ検索・キーワード検索',
-      '月1回のオンライン Q&A',
-    ],
+    taglineJa: '理論中心',
+    taglineEn: 'Theory-focused',
+    featuresJa: ['Archive閲覧', 'Monthly更新', '基礎理論'],
+    featuresEn: ['Archive access', 'Monthly updates', 'Foundational theory'],
     highlight: false,
   },
   {
     name: 'FOUNDATION',
-    jp: 'ファウンデーション',
-    price: '¥8,800',
-    period: '/ month',
-    features: [
-      'STEP 1〜3 の全コンテンツ',
-      'Archive 全タグへのアクセス',
-      '月2回のライブセッション',
-      '技術ノート（PDF）',
-    ],
+    taglineJa: '実践追加',
+    taglineEn: 'Practice added',
+    featuresJa: ['実践動画', 'Live参加', '添削', '限定配信'],
+    featuresEn: ['Practice videos', 'Live participation', 'Critique', 'Exclusive releases'],
     highlight: true,
   },
   {
     name: 'CERTIFIED MEMBER',
-    jp: '認定メンバー',
-    price: '¥18,000',
-    period: '/ month',
-    features: [
-      'STEP 1〜5 の全コンテンツ',
-      'Archive 完全アクセス',
-      'オフラインセミナー優先参加',
-      '認定バッジ・会員フォーラム',
-      '個別フィードバック（月1回）',
-    ],
+    taglineJa: 'Offline連動',
+    taglineEn: 'Offline integration',
+    featuresJa: ['認定対象', '限定Workshop', 'Community', '実技審査'],
+    featuresEn: ['Certification eligible', 'Exclusive workshops', 'Community', 'Practical examination'],
     highlight: false,
   },
 ];
@@ -94,55 +90,90 @@ function SectionLabel({ children }) {
 
 export default function MembersPage() {
   const mainRef = useGsapPageScroll();
+  const { lang } = useLang();
+  const isEn = lang === 'en';
 
   return (
     <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
       <Nav />
 
-      {/* HEADER */}
+      {/* 1. HEADER */}
       <section className="section-pad members-page-top" style={{padding:'180px 80px 80px', borderBottom:'1px solid #C4BFB7'}}>
         <SectionLabel>Members / Subscription</SectionLabel>
-        <h1 className="members-page-title about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px, 4vw, 56px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:28}}>
+        <h1 className="members-page-title about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px, 4vw, 56px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:20}}>
           Join the <em style={{fontStyle:'italic', color:'#C9956A'}}>Archive</em>
         </h1>
-        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:560}}>
-          感覚を保存し、検索し、現場へ戻す。RTA Subscription は、技術を「感覚」で終わらせないための学びのインフラです。
+        <p className="about-fade-up" style={{fontFamily:'DM Sans, sans-serif', fontSize:10, letterSpacing:'0.38em', textTransform:'uppercase', color:'#9A948C'}}>
+          Archive-Based Education System
         </p>
       </section>
 
-      {/* STEPS */}
+      {/* 2. SUBSCRIPTION PURPOSE */}
+      <section className="section-pad" style={{padding:'100px 80px', borderBottom:'1px solid #C4BFB7'}}>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#1C1A17', fontWeight:300, maxWidth:720}}>
+          {isEn ? (
+            <>
+              Not &ldquo;watching videos.&rdquo;<br />
+              <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;Accumulating understanding.&rdquo;</em>
+            </>
+          ) : (
+            <>
+              「動画を見る」ではない。<br />
+              <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;理解を蓄積する&rdquo;こと。</em>
+            </>
+          )}
+        </p>
+      </section>
+
+      {/* 3. STEP 1–5 */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
         <SectionLabel>Learning Path — STEP 1–5</SectionLabel>
         {steps.map((s) => (
           <div
             key={s.step}
             className="members-step-row about-fade-up"
-            style={{display:'grid', gridTemplateColumns:'140px 1fr', alignItems:'start', gap:48, padding:'40px 0', borderBottom:'1px solid #C4BFB7'}}
+            style={{
+              display:'grid',
+              gridTemplateColumns:'minmax(0, 1fr) auto',
+              alignItems:'baseline',
+              gap:24,
+              padding:'32px 0',
+              borderBottom:'1px solid #C4BFB7',
+            }}
           >
-            <div>
-              <div style={{fontSize:9, color:'#C9956A', letterSpacing:'0.32em', marginBottom:10}}>{s.step}</div>
-              <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:28, fontWeight:300, letterSpacing:'-0.01em', display:'block'}}>{s.en}</span>
-              <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{s.jp}</span>
+            <div style={{display:'flex', flexWrap:'wrap', alignItems:'baseline', gap:'8px 16px', minWidth:0}}>
+              <span style={{fontSize:9, color:'#C9956A', letterSpacing:'0.32em', flexShrink:0}}>{s.step}</span>
+              <span style={{color:'#C4BFB7', flexShrink:0}}>｜</span>
+              <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(20px,2.4vw,28px)', fontWeight:300, letterSpacing:'-0.01em', flexShrink:0}}>{s.en}</span>
+              <span style={{color:'#C4BFB7', flexShrink:0}}>—</span>
+              <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#1C1A17', fontWeight:300}}>
+                {isEn ? s.jpEn : s.jp}
+              </span>
             </div>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', maxWidth:560, paddingTop:8}}>{s.body}</p>
+            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#9A948C', letterSpacing:'0.06em', whiteSpace:'nowrap', flexShrink:0}}>
+              Goal：{isEn ? s.goalEn : s.goalJa}
+            </span>
           </div>
         ))}
       </section>
 
-      {/* ARCHIVE SYSTEM */}
+      {/* 4. ARCHIVE SYSTEM */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
         <SectionLabel>Archive System</SectionLabel>
         <div className="members-archive-grid about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start'}}>
           <div>
-            <h2 style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(24px, 3vw, 36px)', fontWeight:300, lineHeight:1.15, marginBottom:24, letterSpacing:'-0.01em'}}>
-              検索できる教育、<br />
-              <em style={{fontStyle:'italic', color:'#C9956A'}}>保存された感覚</em>
-            </h2>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:20}}>
-              セッション映像・技法解説・理論ノートを、タグとキーワードで横断検索。切り方の手順ではなく、「なぜそう見たか」という問いから学べる構造。
-            </p>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>
-              現場で迷ったとき、Archive に戻る。感覚を言語と映像の両方で手元に置き続ける。
+            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#1C1A17', fontWeight:300, marginBottom:32}}>
+              {isEn ? (
+                <>
+                  Not simply a video library.<br />
+                  <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;Searchable education.&rdquo;</em>
+                </>
+              ) : (
+                <>
+                  単なる動画一覧ではない。<br />
+                  <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;検索できる教育&rdquo;</em>
+                </>
+              )}
             </p>
           </div>
           <div style={{border:'1px solid #C4BFB7', padding:'36px 32px', background:'#E5E2DA'}}>
@@ -169,7 +200,7 @@ export default function MembersPage() {
         </div>
       </section>
 
-      {/* SUBSCRIPTION PLANS */}
+      {/* 5. SUBSCRIPTION PLAN */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
         <SectionLabel>Subscription Plan</SectionLabel>
         <div className="members-plans-grid" style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:32}}>
@@ -183,17 +214,15 @@ export default function MembersPage() {
                 background: plan.highlight ? '#E5E2DA' : 'transparent',
                 display:'flex',
                 flexDirection:'column',
-                minHeight:420,
+                minHeight:360,
               }}
             >
-              <div style={{fontSize:9, color:'#9A948C', letterSpacing:'0.28em', marginBottom:8}}>{plan.jp}</div>
-              <h3 style={{fontFamily:'Cormorant Garamond, serif', fontSize:26, fontWeight:300, marginBottom:4, letterSpacing:'-0.01em'}}>{plan.name}</h3>
-              <div style={{marginBottom:28, paddingBottom:28, borderBottom:'1px solid #C4BFB7'}}>
-                <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:32, fontWeight:300}}>{plan.price}</span>
-                <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{plan.period}</span>
-              </div>
+              <h3 style={{fontFamily:'Cormorant Garamond, serif', fontSize:26, fontWeight:300, marginBottom:8, letterSpacing:'-0.01em'}}>{plan.name}</h3>
+              <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#C9956A', letterSpacing:'0.12em', marginBottom:28, paddingBottom:28, borderBottom:'1px solid #C4BFB7'}}>
+                — {isEn ? plan.taglineEn : plan.taglineJa}
+              </p>
               <ul style={{listStyle:'none', flex:1, display:'flex', flexDirection:'column', gap:14}}>
-                {plan.features.map((f) => (
+                {(isEn ? plan.featuresEn : plan.featuresJa).map((f) => (
                   <li key={f} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.85, color:'#9A948C', paddingLeft:16, position:'relative'}}>
                     <span style={{position:'absolute', left:0, top:'0.55em', width:4, height:4, borderRadius:'50%', background:'#C9956A'}} />
                     {f}
@@ -223,29 +252,37 @@ export default function MembersPage() {
         </div>
       </section>
 
-      {/* OFFLINE CONNECTION */}
+      {/* 6. OFFLINE CONNECTION */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
         <SectionLabel>Offline Connection</SectionLabel>
-        <div className="members-offline about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'center'}}>
-          <div>
-            <h2 style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(24px, 3vw, 36px)', fontWeight:300, lineHeight:1.15, marginBottom:24, letterSpacing:'-0.01em'}}>
-              オンラインで蓄積し、<br />
-              <em style={{fontStyle:'italic', color:'#C9956A'}}>対面で深める</em>
-            </h2>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:20}}>
-              Archive で保存した感覚は、セミナーとワークショップで身体に戻る。録画では届かない手応えと空気の重みを、福岡・東京を中心に共有する。
+        <div className="members-offline about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80}}>
+          <div style={{padding:'40px 36px', border:'1px solid #C4BFB7', background:'#E5E2DA'}}>
+            <p style={{fontSize:9, letterSpacing:'0.38em', textTransform:'uppercase', color:'#C9956A', marginBottom:20}}>
+              {isEn ? 'Online' : 'オンライン'}
             </p>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>
-              CERTIFIED MEMBER 以上は、オフラインセッションへの優先参加と、クローズドな技術対話へのアクセスが含まれます。
+            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(16px,1.8vw,22px)', lineHeight:2, color:'#1C1A17', fontWeight:300}}>
+              {isEn ? 'Theory · Observation · Way of seeing' : '理論・観察・見方'}
             </p>
-            <a href="/seminar" style={{display:'inline-block', marginTop:32, fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'18px 44px', textDecoration:'none'}}>
-              View Seminars →
-            </a>
           </div>
-          <div style={{border:'1px solid #C4BFB7', aspectRatio:'4/3', display:'flex', alignItems:'center', justifyContent:'center', background:'#D9D5CC'}}>
-            <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:10, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7'}}>Offline Session</span>
+          <div style={{padding:'40px 36px', border:'1px solid #C4BFB7'}}>
+            <p style={{fontSize:9, letterSpacing:'0.38em', textTransform:'uppercase', color:'#C9956A', marginBottom:20}}>
+              {isEn ? 'Offline' : 'オフライン'}
+            </p>
+            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(16px,1.8vw,22px)', lineHeight:2, color:'#1C1A17', fontWeight:300}}>
+              {isEn ? 'Pressure · Heat · Distance · Air · Sensation of the hands' : '圧・熱・距離・空気・手の感覚'}
+            </p>
           </div>
         </div>
+      </section>
+
+      {/* 7. RTA GOAL */}
+      <section className="section-pad members-goal" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7', textAlign:'center'}}>
+        <p className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:32}}>
+          RTA Goal
+        </p>
+        <p className="about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px,3.5vw,48px)', fontStyle:'italic', fontWeight:300, lineHeight:1.35, color:'#1C1A17', letterSpacing:'-0.02em'}}>
+          {isEn ? '"Change how hair is seen."' : '"髪の見え方"を変える。'}
+        </p>
       </section>
 
       <footer className="site-footer about-fade-up" style={{padding:'48px 80px', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
@@ -263,8 +300,11 @@ export default function MembersPage() {
           .section-pad { padding: 80px 24px !important; }
           .members-step-row {
             grid-template-columns: 1fr !important;
-            gap: 16px !important;
-            padding: 32px 0 !important;
+            gap: 12px !important;
+            padding: 28px 0 !important;
+          }
+          .members-step-row > span:last-child {
+            white-space: normal !important;
           }
           .members-archive-grid {
             grid-template-columns: 1fr !important;
@@ -276,8 +316,9 @@ export default function MembersPage() {
           }
           .members-offline {
             grid-template-columns: 1fr !important;
-            gap: 40px !important;
+            gap: 24px !important;
           }
+          .members-goal { padding: 100px 24px !important; }
         }
       `}</style>
     </main>
