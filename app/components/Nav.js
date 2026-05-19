@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useLang } from '../context/LangContext';
 
 const menuItems = [
   ['01', 'Seminar', '/seminar'],
@@ -12,6 +13,7 @@ const menuItems = [
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { lang, setLang } = useLang();
 
   return (
     <>
@@ -24,7 +26,51 @@ export default function Nav() {
         <div style={{textAlign:'center', whiteSpace:'nowrap', minWidth:0}}>
           <a href="/" className="site-logo" style={{fontFamily:'Cormorant Garamond, serif', fontSize:11, letterSpacing:'0.2em', textTransform:'uppercase', whiteSpace:'nowrap', color:'#1C1A17', textDecoration:'none'}}>Razor Tech Archive</a>
         </div>
-        <div style={{display:'flex', gap:20, justifySelf:'end'}}>
+        <div style={{display:'flex', gap:14, alignItems:'center', justifySelf:'end', flexWrap:'wrap', justifyContent:'flex-end'}}>
+          <div
+            role="group"
+            aria-label="Language"
+            style={{
+              display:'inline-flex',
+              alignItems:'center',
+              fontFamily:'DM Sans, sans-serif',
+              fontSize:9,
+              letterSpacing:'0.18em',
+              textTransform:'uppercase',
+              border:'1px solid #C4BFB7',
+              background:'rgba(237,235,229,0.6)',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setLang('en')}
+              style={{
+                padding:'8px 10px',
+                border:'none',
+                borderRight:'1px solid #C4BFB7',
+                background: lang === 'en' ? '#1C1A17' : 'transparent',
+                color: lang === 'en' ? '#EDEBE5' : '#1C1A17',
+                cursor:'pointer',
+                letterSpacing:'0.18em',
+              }}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLang('ja')}
+              style={{
+                padding:'8px 10px',
+                border:'none',
+                background: lang === 'ja' ? '#1C1A17' : 'transparent',
+                color: lang === 'ja' ? '#EDEBE5' : '#1C1A17',
+                cursor:'pointer',
+                letterSpacing:'0.18em',
+              }}
+            >
+              JP
+            </button>
+          </div>
           <button aria-label="Search" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           </button>
