@@ -26,7 +26,10 @@ body {
 /* Shared nav styles (mobile) */
 @media (max-width: 768px) {
   .site-nav {
-    padding: 20px 20px !important;
+    padding: 20px 24px !important;
+  }
+  .site-nav .site-logo {
+    font-size: 10px !important;
   }
   .menu-overlay {
     padding: 100px 24px 40px !important;

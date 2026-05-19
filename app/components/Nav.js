@@ -71,13 +71,10 @@ export default function Nav() {
               JP
             </button>
           </div>
-          <button aria-label="Search" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          </button>
           <button aria-label="Account" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </button>
-          <button aria-label="Contact" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
+          <button type="button" aria-label="Cart" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           </button>
         </div>
