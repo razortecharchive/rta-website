@@ -8,11 +8,25 @@ import { useLang } from '../context/LangContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const keywords = [
-  { en: 'SEE', jp: '髪を観察する', jpEn: 'Observe Hair' },
-  { en: 'TOUCH', jp: '柔操作理論', jpEn: 'Soft Manipulation Theory' },
-  { en: 'FLOW', jp: 'CUT × DRY', jpEn: 'CUT × DRY' },
-];
+const panelStyle = {
+  height: '100vh',
+  minHeight: 480,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '0 48px',
+  boxSizing: 'border-box',
+  borderTop: '1px solid #C4BFB7',
+};
+
+const panelInnerStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  textAlign: 'center',
+  maxWidth: 800,
+  gap: 28,
+};
 
 function SplitText({ text, className, style }) {
   return (
@@ -20,6 +34,23 @@ function SplitText({ text, className, style }) {
       {text.split('').map((char, i) => (
         <span key={`${char}-${i}`} className="about-char" style={{ display: 'inline-block' }}>
           {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/** SplitText that preserves explicit line breaks via block spans */
+function SplitBlock({ lines, className, style }) {
+  return (
+    <span className={className} style={style} data-split-text>
+      {lines.map((line, li) => (
+        <span key={li} style={{ display: 'block' }}>
+          {line.split('').map((char, i) => (
+            <span key={`${li}-${i}`} className="about-char" style={{ display: 'inline-block' }}>
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+          ))}
         </span>
       ))}
     </span>
@@ -34,14 +65,6 @@ export default function AboutPage() {
   useEffect(() => {
     const root = mainRef.current;
     if (!root) return;
-
-    const hoverTitles = root.querySelectorAll('.about-keyword-title');
-    const onEnter = (e) => {
-      gsap.to(e.currentTarget, { color: '#C9956A', duration: 0.6, ease: 'power3.out' });
-    };
-    const onLeave = (e) => {
-      gsap.to(e.currentTarget, { color: '#1C1A17', duration: 0.6, ease: 'power3.out' });
-    };
 
     const ctx = gsap.context(() => {
       root.querySelectorAll('[data-split-text]').forEach((group) => {
@@ -82,19 +105,28 @@ export default function AboutPage() {
       });
     }, root);
 
-    hoverTitles.forEach((el) => {
-      el.addEventListener('mouseenter', onEnter);
-      el.addEventListener('mouseleave', onLeave);
-    });
-
-    return () => {
-      ctx.revert();
-      hoverTitles.forEach((el) => {
-        el.removeEventListener('mouseenter', onEnter);
-        el.removeEventListener('mouseleave', onLeave);
-      });
-    };
+    return () => ctx.revert();
   }, []);
+
+  const concept1Lines = isEn
+    ? ['RTA Subscription is not', 'simply an online salon.', '"An Archive that Preserves Sensation"']
+    : ['RTA Subscriptionは、', '単なるオンラインサロンではない。', '"感覚を保存するArchive"'];
+
+  const concept2Lines = isEn
+    ? [
+        'Much beauty education teaches cutting methods, procedures, and styles.',
+        'But RTA is different.',
+        'What RTA wants to preserve is how you see hair.',
+      ]
+    : [
+        '多くの美容教育は、切り方・手順・スタイルを教える。',
+        'しかしRTAは違う。',
+        'RTAが保存したいのは、髪の見方。',
+      ];
+
+  const observationText = isEn
+    ? 'At RTA, we theorize natural growth, hair flow, root direction, fall position, texture, and airiness—and translate them into reproducibility.'
+    : 'RTAでは、生え癖・毛流れ・根元方向・落下位置・質感・空気感 を理論化し、再現性へ落とし込む。';
 
   return (
     <main
@@ -110,7 +142,7 @@ export default function AboutPage() {
     >
       <Nav />
 
-      {/* 1. Full-screen hero */}
+      {/* 1. Header */}
       <section
         className="about-hero"
         style={{
@@ -143,22 +175,36 @@ export default function AboutPage() {
           About / Manifesto
         </p>
 
-        <h1
-          className="about-hero-title"
-          style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(60px, 12vw, 200px)',
-            fontWeight: 200,
-            lineHeight: 0.95,
-            letterSpacing: '-0.04em',
-            textAlign: 'center',
-            margin: 0,
-            maxWidth: '100%',
-            color: '#1C1A17',
-          }}
-        >
-          <SplitText text="The Art of Stealth Cut." />
-        </h1>
+        <div style={{ textAlign: 'center' }}>
+          <h1
+            className="about-hero-title"
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: 'clamp(60px, 12vw, 200px)',
+              fontWeight: 200,
+              lineHeight: 0.95,
+              letterSpacing: '-0.04em',
+              textAlign: 'center',
+              margin: 0,
+              maxWidth: '100%',
+              color: '#1C1A17',
+            }}
+          >
+            <SplitText text="The Art of Stealth Cut." />
+          </h1>
+          <p
+            style={{
+              fontFamily: 'DM Sans, sans-serif',
+              fontSize: 10,
+              letterSpacing: '0.38em',
+              textTransform: 'uppercase',
+              color: '#9A948C',
+              margin: '28px 0 0',
+            }}
+          >
+            <SplitText text="Archive-Based Education System" />
+          </p>
+        </div>
 
         <p
           className="about-hero-scroll"
@@ -189,75 +235,114 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* 2. Keywords — SEE / TOUCH / FLOW */}
-      {keywords.map((kw) => (
-        <section
-          key={kw.en}
-          className="about-keyword"
-          style={{
-            height: '100vh',
-            minHeight: 480,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 48px',
-            boxSizing: 'border-box',
-            borderTop: '1px solid #C4BFB7',
-          }}
-        >
-          <div
+      {/* 2. Concept 1 */}
+      <section className="about-panel" style={panelStyle}>
+        <div style={panelInnerStyle}>
+          <p
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              textAlign: 'center',
-              maxWidth: 720,
+              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
+              fontSize: 11,
+              letterSpacing: '0.28em',
+              textTransform: 'uppercase',
+              color: '#C9956A',
+              margin: 0,
             }}
           >
-            <h2
-              className="about-keyword-title"
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 'clamp(72px, 18vw, 220px)',
-                fontWeight: 200,
-                lineHeight: 0.9,
-                letterSpacing: '-0.04em',
-                margin: 0,
-                color: '#1C1A17',
-                cursor: 'default',
-              }}
-            >
-              <SplitText text={kw.en} />
-            </h2>
-
-            <span
-              className="about-vline"
-              style={{
-                display: 'block',
-                width: 1,
-                height: 56,
-                background: '#C4BFB7',
-                margin: '32px 0',
-              }}
-            />
-
+            <SplitText text={isEn ? 'What is RTA Subscription' : 'RTA Subscriptionとは'} />
+          </p>
+          <div
+            style={{
+              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
+              fontSize: 'clamp(16px, 2.2vw, 28px)',
+              lineHeight: 2,
+              color: '#1C1A17',
+              fontWeight: 300,
+            }}
+          >
+            <SplitBlock lines={concept1Lines.slice(0, 2)} />
             <p
               style={{
-                fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
-                fontSize: 'clamp(12px, 1.4vw, 15px)',
-                letterSpacing: '0.2em',
-                color: '#9A948C',
-                margin: 0,
+                fontFamily: 'Cormorant Garamond, serif',
+                fontSize: 'clamp(20px, 3vw, 40px)',
+                fontStyle: 'italic',
                 fontWeight: 300,
+                lineHeight: 1.4,
+                margin: '24px 0 0',
+                letterSpacing: '-0.01em',
               }}
             >
-              <SplitText text={isEn ? kw.jpEn : kw.jp} />
+              <SplitText text={concept1Lines[2]} />
             </p>
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
 
-      {/* 3. Quote */}
+      {/* 3. Concept 2 */}
+      <section className="about-panel" style={panelStyle}>
+        <div style={panelInnerStyle}>
+          <div
+            style={{
+              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
+              fontSize: 'clamp(16px, 2.2vw, 28px)',
+              lineHeight: 2.2,
+              color: '#9A948C',
+              fontWeight: 300,
+            }}
+          >
+            <SplitBlock lines={concept2Lines} />
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Philosophy */}
+      <section className="about-panel" style={panelStyle}>
+        <div style={panelInnerStyle}>
+          <p
+            style={{
+              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
+              fontSize: 11,
+              letterSpacing: '0.28em',
+              textTransform: 'uppercase',
+              color: '#C9956A',
+              margin: 0,
+            }}
+          >
+            <SplitText text="RTA Subscription Philosophy" />
+          </p>
+          <p
+            style={{
+              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
+              fontSize: 'clamp(18px, 2.5vw, 32px)',
+              lineHeight: 1.9,
+              color: '#1C1A17',
+              fontWeight: 300,
+              margin: 0,
+            }}
+          >
+            <SplitText text={isEn ? 'We do not let technique end as "sensation".' : '技術を"感覚"で終わらせない。'} />
+          </p>
+        </div>
+      </section>
+
+      {/* 5. Observation */}
+      <section className="about-panel" style={panelStyle}>
+        <div style={panelInnerStyle}>
+          <p
+            style={{
+              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
+              fontSize: 'clamp(15px, 2vw, 24px)',
+              lineHeight: 2.4,
+              color: '#9A948C',
+              fontWeight: 300,
+              margin: 0,
+            }}
+          >
+            <SplitText text={observationText} />
+          </p>
+        </div>
+      </section>
+
+      {/* 6. Quote */}
       <section
         className="about-quote-section"
         style={{
@@ -286,7 +371,7 @@ export default function AboutPage() {
             letterSpacing: '-0.02em',
           }}
         >
-          <SplitText text='The blade does not cut hair. It listens to the weight that asks to fall.' />
+          <SplitText text="The blade does not cut hair. It listens to the weight that asks to fall." />
         </p>
         <p
           style={{
@@ -362,7 +447,7 @@ export default function AboutPage() {
           .about-hero-label {
             top: 120px !important;
           }
-          .about-keyword {
+          .about-panel {
             padding: 0 24px !important;
           }
           .about-quote-section {
