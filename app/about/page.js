@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Nav from '../components/Nav';
 import { useLang } from '../context/LangContext';
+import aboutHero from './about-hero.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,18 +31,17 @@ const panelInnerStyle = {
 };
 
 const heroTaglines = [
-  'RAZOR TECH ARCHIVE',
-  'SUBSCRIPTION PLATFORM DESIGN',
-  'ARCHIVE-BASED EDUCATION SYSTEM',
+  'Razor Tech Archive',
+  'Subscription Platform Design',
+  'Archive-Based Education System',
 ];
 
-const heroNavLinks = [
-  { label: 'HOME', href: '/' },
-  { label: 'SEMINAR', href: '/seminar' },
-  { label: 'SHOP', href: '/shop' },
-  { label: 'MEMBERS', href: '/members' },
-  { label: 'ABOUT', href: '/about', active: true },
-  { label: 'CONTACT', href: '/contact' },
+const heroBarColors = [
+  { c: '#EDEBE5', flex: 2 },
+  { c: '#1C1A17', flex: 3 },
+  { c: '#C9956A', flex: 2 },
+  { c: '#8C7B6B', flex: 4 },
+  { c: '#C4BFB7', flex: 1 },
 ];
 
 export default function AboutPage() {
@@ -146,138 +145,147 @@ export default function AboutPage() {
         className="about-hero"
         style={{
           position: 'relative',
+          width: '100%',
           height: '100vh',
           overflow: 'hidden',
+          background: '#EDEBE5',
         }}
       >
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <div style={{ position: 'absolute', inset: 0 }}>
           <Image
-            src="/about-hero.jpg"
+            src={aboutHero}
             alt="Razor Tech Archive — About"
             fill
-            quality={100}
             priority
             sizes="100vw"
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            style={{ objectFit: 'cover', objectPosition: 'center center', willChange: 'transform' }}
+          />
+          <div
+            aria-hidden="true"
+            style={{ position: 'absolute', inset: 0, background: 'rgba(28,26,23,0.22)' }}
           />
         </div>
 
         <div
-          aria-hidden="true"
+          className="about-hero-sns"
           style={{
             position: 'absolute',
-            inset: 0,
-            background: 'rgba(237,235,229,0.45)',
-            zIndex: 1,
-          }}
-        />
-
-        <nav
-          className="about-hero-nav"
-          aria-label="Page navigation"
-          style={{
-            position: 'fixed',
-            right: 32,
+            right: 24,
             top: '50%',
             transform: 'translateY(-50%)',
+            zIndex: 10,
             display: 'flex',
             flexDirection: 'column',
-            gap: 10,
-            zIndex: 10,
+            gap: 20,
           }}
         >
-          {heroNavLinks.map(({ label, href, active }) => (
-            <Link
-              key={label}
-              href={href}
+          {['IG', 'TW', 'YT'].map((s) => (
+            <a
+              key={s}
+              href="#"
+              className="about-fade-up"
               style={{
                 fontSize: 8,
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                color: active ? '#1C1A17' : '#9A948C',
+                letterSpacing: '0.18em',
+                color: 'rgba(255,255,255,0.5)',
                 textDecoration: 'none',
+                writingMode: 'vertical-rl',
               }}
             >
-              {label}
-            </Link>
-          ))}
-        </nav>
-
-        <div
-          className="about-hero-taglines"
-          style={{
-            position: 'absolute',
-            left: 80,
-            bottom: 80,
-            zIndex: 2,
-          }}
-        >
-          {heroTaglines.map((line) => (
-            <div
-              key={line}
-              style={{
-                fontSize: 10,
-                letterSpacing: '0.28em',
-                textTransform: 'uppercase',
-                color: '#1C1A17',
-                marginBottom: 8,
-              }}
-            >
-              {line}
-            </div>
+              {s}
+            </a>
           ))}
         </div>
 
         <div
-          className="about-hero-number"
+          className="about-page-top about-fade-up about-hero-copy"
           style={{
             position: 'absolute',
             left: 80,
-            bottom: 40,
-            zIndex: 2,
+            bottom: 120,
+            zIndex: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 20,
+          }}
+        >
+          <div
+            style={{
+              fontSize: 8,
+              letterSpacing: '0.45em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+            }}
+          >
+            <span style={{ width: 18, height: 1, background: 'rgba(255,255,255,0.4)', display: 'inline-block' }} />
+            About / Manifesto
+          </div>
+          <h1
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: 'clamp(32px,4vw,52px)',
+              fontWeight: 200,
+              lineHeight: 1.05,
+              letterSpacing: '-0.02em',
+              color: '#FFFFFF',
+              margin: 0,
+            }}
+          >
+            The Art of <em style={{ fontStyle: 'italic', color: '#E8B48A' }}>Stealth</em> Cut.
+          </h1>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 8 }}>
+            {heroTaglines.map((t) => (
+              <div
+                key={t}
+                className="about-fade-up"
+                style={{
+                  fontSize: 9,
+                  letterSpacing: '0.22em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.45)',
+                }}
+              >
+                {t}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div
+          className="about-fade-up"
+          style={{
+            position: 'absolute',
+            left: 80,
+            bottom: 76,
+            zIndex: 10,
             fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(48px, 6vw, 80px)',
-            fontWeight: 200,
-            color: 'rgba(28,26,23,0.2)',
-            lineHeight: 1,
+            fontSize: 11,
+            fontWeight: 300,
+            color: 'rgba(255,255,255,0.35)',
+            letterSpacing: '0.18em',
           }}
         >
           01
         </div>
 
         <div
-          className="about-hero-scroll"
           style={{
             position: 'absolute',
-            left: 80,
-            bottom: 32,
-            zIndex: 2,
-            fontSize: 8,
-            letterSpacing: '0.3em',
-            color: 'rgba(28,26,23,0.4)',
-            textTransform: 'uppercase',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 10,
+            display: 'flex',
+            height: 6,
           }}
         >
-          SCROLL
+          {heroBarColors.map((b) => (
+            <div key={b.c} style={{ flex: b.flex, background: b.c }} />
+          ))}
         </div>
-
-        <Link
-          href="/seminar"
-          className="about-hero-next"
-          style={{
-            position: 'absolute',
-            right: 80,
-            bottom: 32,
-            zIndex: 2,
-            fontSize: 8,
-            letterSpacing: '0.3em',
-            color: 'rgba(28,26,23,0.4)',
-            textDecoration: 'none',
-            textTransform: 'uppercase',
-          }}
-        >
-          NEXT — SEMINAR
-        </Link>
       </section>
 
       {/* 2. Concept 1 */}
@@ -511,25 +519,13 @@ export default function AboutPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .about-hero-nav {
+          .about-hero-copy {
+            left: 24px !important;
+            bottom: 100px !important;
+            right: 24px;
+          }
+          .about-hero-sns {
             right: 16px !important;
-            gap: 8px !important;
-          }
-          .about-hero-taglines {
-            left: 24px !important;
-            bottom: 120px !important;
-          }
-          .about-hero-number {
-            left: 24px !important;
-            bottom: 72px !important;
-          }
-          .about-hero-scroll {
-            left: 24px !important;
-            bottom: 24px !important;
-          }
-          .about-hero-next {
-            right: 24px !important;
-            bottom: 24px !important;
           }
           .about-panel {
             padding: 0 24px !important;
