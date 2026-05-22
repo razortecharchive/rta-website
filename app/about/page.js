@@ -28,33 +28,12 @@ const panelInnerStyle = {
   gap: 28,
 };
 
-function SplitText({ text, className, style }) {
-  return (
-    <span className={className} style={style} data-split-text aria-label={text}>
-      {text.split('').map((char, i) => (
-        <span key={`${char}-${i}`} className="about-char" style={{ display: 'inline-block' }}>
-          {char === ' ' ? '\u00A0' : char}
-        </span>
-      ))}
+function TitleSplit({ text }) {
+  return text.split('').map((char, i) => (
+    <span key={i} className="about-title-char" style={{ display: 'inline-block' }}>
+      {char === ' ' ? '\u00A0' : char}
     </span>
-  );
-}
-
-/** SplitText that preserves explicit line breaks via block spans */
-function SplitBlock({ lines, className, style }) {
-  return (
-    <span className={className} style={style} data-split-text>
-      {lines.map((line, li) => (
-        <span key={li} style={{ display: 'block' }}>
-          {line.split('').map((char, i) => (
-            <span key={`${li}-${i}`} className="about-char" style={{ display: 'inline-block' }}>
-              {char === ' ' ? '\u00A0' : char}
-            </span>
-          ))}
-        </span>
-      ))}
-    </span>
-  );
+  ));
 }
 
 export default function AboutPage() {
@@ -67,37 +46,63 @@ export default function AboutPage() {
     if (!root) return;
 
     const ctx = gsap.context(() => {
-      root.querySelectorAll('[data-split-text]').forEach((group) => {
-        const chars = group.querySelectorAll('.about-char');
-        const section = group.closest('section');
-        if (!chars.length || !section) return;
+      const animateFadeUp = (container, trigger) => {
+        const fadeEls = container.querySelectorAll('.about-fade-up');
+        if (!fadeEls.length) return;
 
-        gsap.set(chars, { opacity: 0, y: 40 });
-        gsap.to(chars, {
+        gsap.set(fadeEls, { opacity: 0, y: 40 });
+        gsap.to(fadeEls, {
           opacity: 1,
           y: 0,
           duration: 1.2,
           ease: 'power3.out',
-          stagger: 0.04,
+          stagger: 0.08,
           scrollTrigger: {
-            trigger: section,
+            trigger,
             start: 'top 72%',
             toggleActions: 'play none none none',
           },
         });
+      };
+
+      // 2. about-fade-up — staggered fade-in per section
+      root.querySelectorAll('section').forEach((section) => {
+        animateFadeUp(section, section);
       });
 
+      const footer = root.querySelector('footer');
+      if (footer) {
+        animateFadeUp(footer, footer);
+      }
+
+      // 3. Main title character split
+      const titleChars = root.querySelectorAll('.about-hero-title .about-title-char');
+      if (titleChars.length) {
+        gsap.set(titleChars, { opacity: 0, y: 60 });
+        gsap.to(titleChars, {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          ease: 'power3.out',
+          stagger: 0.04,
+          scrollTrigger: {
+            trigger: root.querySelector('.about-hero'),
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        });
+      }
+
+      // 4. Vertical lines
       root.querySelectorAll('.about-vline').forEach((line) => {
         const section = line.closest('section');
-        if (!section) return;
-
-        gsap.set(line, { scaleY: 0, transformOrigin: 'top center' });
+        gsap.set(line, { scaleY: 0, transformOrigin: 'top' });
         gsap.to(line, {
           scaleY: 1,
-          duration: 1.2,
-          ease: 'power3.out',
+          duration: 1.4,
+          ease: 'power2.inOut',
           scrollTrigger: {
-            trigger: section,
+            trigger: section ?? line,
             start: 'top 68%',
             toggleActions: 'play none none none',
           },
@@ -105,8 +110,11 @@ export default function AboutPage() {
       });
     }, root);
 
-    return () => ctx.revert();
-  }, []);
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, [lang]);
 
   const concept1Lines = isEn
     ? ['RTA Subscription is not', 'simply an online salon.', '"An Archive that Preserves Sensation"']
@@ -158,7 +166,7 @@ export default function AboutPage() {
         }}
       >
         <p
-          className="about-hero-label"
+          className="about-hero-label about-fade-up"
           style={{
             position: 'absolute',
             top: 140,
@@ -190,9 +198,10 @@ export default function AboutPage() {
               color: '#1C1A17',
             }}
           >
-            <SplitText text="The Art of Stealth Cut." />
+            <TitleSplit text="The Art of Stealth Cut." />
           </h1>
           <p
+            className="about-fade-up"
             style={{
               fontFamily: 'DM Sans, sans-serif',
               fontSize: 10,
@@ -202,12 +211,26 @@ export default function AboutPage() {
               margin: '28px 0 0',
             }}
           >
-            <SplitText text="Archive-Based Education System" />
+            Archive-Based Education System
           </p>
         </div>
 
+        <span
+          className="about-vline about-fade-up"
+          style={{
+            position: 'absolute',
+            bottom: 100,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: 1,
+            height: 48,
+            background: '#C4BFB7',
+            display: 'block',
+          }}
+        />
+
         <p
-          className="about-hero-scroll"
+          className="about-hero-scroll about-fade-up"
           style={{
             position: 'absolute',
             bottom: 48,
@@ -239,6 +262,7 @@ export default function AboutPage() {
       <section className="about-panel" style={panelStyle}>
         <div style={panelInnerStyle}>
           <p
+            className="about-fade-up"
             style={{
               fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
               fontSize: 11,
@@ -248,9 +272,11 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            <SplitText text={isEn ? 'What is RTA Subscription' : 'RTA Subscriptionとは'} />
+            {isEn ? 'What is RTA Subscription' : 'RTA Subscriptionとは'}
           </p>
+          <span className="about-vline" style={{ width: 1, height: 56, background: '#C4BFB7', display: 'block' }} />
           <div
+            className="about-fade-up"
             style={{
               fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
               fontSize: 'clamp(16px, 2.2vw, 28px)',
@@ -259,8 +285,13 @@ export default function AboutPage() {
               fontWeight: 300,
             }}
           >
-            <SplitBlock lines={concept1Lines.slice(0, 2)} />
+            {concept1Lines.slice(0, 2).map((line) => (
+              <span key={line} style={{ display: 'block' }}>
+                {line}
+              </span>
+            ))}
             <p
+              className="about-fade-up"
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
                 fontSize: 'clamp(20px, 3vw, 40px)',
@@ -271,7 +302,7 @@ export default function AboutPage() {
                 letterSpacing: '-0.01em',
               }}
             >
-              <SplitText text={concept1Lines[2]} />
+              {concept1Lines[2]}
             </p>
           </div>
         </div>
@@ -280,7 +311,9 @@ export default function AboutPage() {
       {/* 3. Concept 2 */}
       <section className="about-panel" style={panelStyle}>
         <div style={panelInnerStyle}>
+          <span className="about-vline" style={{ width: 1, height: 56, background: '#C4BFB7', display: 'block' }} />
           <div
+            className="about-fade-up"
             style={{
               fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
               fontSize: 'clamp(16px, 2.2vw, 28px)',
@@ -289,7 +322,11 @@ export default function AboutPage() {
               fontWeight: 300,
             }}
           >
-            <SplitBlock lines={concept2Lines} />
+            {concept2Lines.map((line) => (
+              <span key={line} style={{ display: 'block' }}>
+                {line}
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -298,6 +335,7 @@ export default function AboutPage() {
       <section className="about-panel" style={panelStyle}>
         <div style={panelInnerStyle}>
           <p
+            className="about-fade-up"
             style={{
               fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
               fontSize: 11,
@@ -307,9 +345,11 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            <SplitText text="RTA Subscription Philosophy" />
+            RTA Subscription Philosophy
           </p>
+          <span className="about-vline" style={{ width: 1, height: 56, background: '#C4BFB7', display: 'block' }} />
           <p
+            className="about-fade-up"
             style={{
               fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
               fontSize: 'clamp(18px, 2.5vw, 32px)',
@@ -319,7 +359,7 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            <SplitText text={isEn ? 'We do not let technique end as "sensation".' : '技術を"感覚"で終わらせない。'} />
+            {isEn ? 'We do not let technique end as "sensation".' : '技術を"感覚"で終わらせない。'}
           </p>
         </div>
       </section>
@@ -327,7 +367,9 @@ export default function AboutPage() {
       {/* 5. Observation */}
       <section className="about-panel" style={panelStyle}>
         <div style={panelInnerStyle}>
+          <span className="about-vline" style={{ width: 1, height: 56, background: '#C4BFB7', display: 'block' }} />
           <p
+            className="about-fade-up"
             style={{
               fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
               fontSize: 'clamp(15px, 2vw, 24px)',
@@ -337,7 +379,7 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            <SplitText text={observationText} />
+            {observationText}
           </p>
         </div>
       </section>
@@ -358,7 +400,9 @@ export default function AboutPage() {
           textAlign: 'center',
         }}
       >
+        <span className="about-vline about-fade-up" style={{ width: 1, height: 56, background: '#C4BFB7', display: 'block', marginBottom: 40 }} />
         <p
+          className="about-fade-up"
           style={{
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: 'clamp(24px, 4vw, 48px)',
@@ -371,9 +415,10 @@ export default function AboutPage() {
             letterSpacing: '-0.02em',
           }}
         >
-          <SplitText text="The blade does not cut hair. It listens to the weight that asks to fall." />
+          The blade does not cut hair. It listens to the weight that asks to fall.
         </p>
         <p
+          className="about-fade-up"
           style={{
             fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
             fontSize: 11,
@@ -383,7 +428,7 @@ export default function AboutPage() {
             margin: 0,
           }}
         >
-          <SplitText text="— RTA Manifesto, 2026" />
+          — RTA Manifesto, 2026
         </p>
       </section>
 
@@ -400,6 +445,7 @@ export default function AboutPage() {
         }}
       >
         <span
+          className="about-fade-up"
           style={{
             fontFamily: 'Cormorant Garamond, serif',
             fontSize: 13,
@@ -410,8 +456,10 @@ export default function AboutPage() {
         >
           Razor Tech Archive
         </span>
-        <span style={{ fontSize: 9, letterSpacing: '0.18em', color: '#9A948C' }}>© 2026 Razor Tech Archive</span>
-        <div style={{ display: 'flex', gap: 24 }}>
+        <span className="about-fade-up" style={{ fontSize: 9, letterSpacing: '0.18em', color: '#9A948C' }}>
+          © 2026 Razor Tech Archive
+        </span>
+        <div className="about-fade-up" style={{ display: 'flex', gap: 24 }}>
           <a
             href="#"
             style={{
