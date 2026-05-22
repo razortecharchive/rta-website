@@ -1,6 +1,7 @@
 'use client';
 
 import Nav from '../components/Nav';
+import SubscriptionPhilosophy from '../components/SubscriptionPhilosophy';
 import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
@@ -107,6 +108,8 @@ export default function MembersPage() {
           Archive-Based Education System
         </p>
       </section>
+
+      <SubscriptionPhilosophy />
 
       {/* 2. SUBSCRIPTION PURPOSE */}
       <section className="section-pad" style={{padding:'100px 80px', borderBottom:'1px solid #C4BFB7'}}>
