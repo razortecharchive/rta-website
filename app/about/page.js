@@ -1,12 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Nav from '../components/Nav';
 import { useLang } from '../context/LangContext';
-import aboutHero from './about-hero.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -152,13 +150,10 @@ export default function AboutPage() {
         }}
       >
         <div style={{ position: 'absolute', inset: 0 }}>
-          <Image
-            src={aboutHero}
+          <img
+            src="/about-hero.jpg"
             alt="Razor Tech Archive — About"
-            fill
-            priority
-            sizes="100vw"
-            style={{ objectFit: 'cover', objectPosition: 'center center', willChange: 'transform' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
           />
           <div
             aria-hidden="true"

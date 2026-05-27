@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useMemo } from 'react';
 import Nav from './components/Nav';
 import { useLang } from './context/LangContext';
@@ -34,18 +33,10 @@ export default function Home() {
       <section className="about-page-top" style={{position:'relative', width:'100vw', height:'100vh', background:'#EDEBE5', overflow:'hidden'}}>
         <div className="about-parallax-wrap" style={{position:'absolute', inset:0, overflow:'hidden'}}>
           <div className="parallax-image-inner" style={{position:'absolute', left:0, top:'-7.5%', width:'100%', height:'115%'}}>
-            <Image
+            <img
               src="/hero.png"
               alt="Razor Tech Archive"
-              fill
-              quality={100}
-              priority
-              sizes="100vw"
-              style={{
-                objectFit:'cover',
-                objectPosition:'center',
-                willChange:'transform',
-              }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
             />
           </div>
         </div>
