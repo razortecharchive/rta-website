@@ -9,8 +9,8 @@ import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 const products = [
   {
     id: 'razor-seminar',
-    nameJa: 'Razor Seminar',
-    nameEn: 'Razor Seminar',
+    nameJa: 'Razor Basics Seminar',
+    nameEn: 'Razor Basics Seminar',
     category: 'Seminar',
     status: 'soldOut',
     descJa: 'レザーカットの理論と実践を深く学ぶ、RTAのセミナー。',

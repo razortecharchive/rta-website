@@ -8,8 +8,7 @@ const menuItems = [
   ['02', 'Shop', '/shop'],
   ['03', 'Members', '/members'],
   ['04', 'About', '/about'],
-  ['05', 'Archive', '#'],
-  ['06', 'Contact', '/contact'],
+  ['05', 'Contact', '/contact'],
 ];
 
 export default function Nav() {

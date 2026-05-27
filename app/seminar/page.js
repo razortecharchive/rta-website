@@ -8,88 +8,64 @@ import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 const upcomingSeminars = [
   {
     num: '01',
-    date: '2026.06.15',
-    weekday: 'SUN',
-    name: 'Razor Basics Vol. 03',
-    category: 'Introductory',
-    locJa: '福岡 / ill 天神大名',
-    locEn: 'Fukuoka / ill Tenjin Daimyo',
-    time: '14:00 — 18:00',
-    capacityJa: '12名',
-    capacityEn: '12 seats',
-    price: 18000,
-    bodyJa: 'レザーカット技術の基礎を体系的に学ぶ入門編 第3弾。刃の角度、骨格との対話、毛流の解読。技術を「型」として固めるのではなく、毎回の毛量に応答する身体に変えていく。',
-    bodyEn: 'Volume 3 of the introductory series that systematically teaches razor cutting fundamentals. Blade angle, dialogue with bone structure, reading the flow of hair—transforming technique from fixed “forms” into a body that responds to each head’s volume.',
-  },
-  {
-    num: '02',
-    date: '2026.07.20',
-    weekday: 'MON',
-    name: 'Advanced Razor Tech',
-    category: 'Advanced',
-    locJa: '東京 / TBA',
-    locEn: 'Tokyo / TBA',
-    time: '13:00 — 19:00',
-    capacityJa: '8名',
-    capacityEn: '8 seats',
-    price: 24000,
-    bodyJa: '応用技術と理論を深く掘り下げる、経験者向けセッション。Stealth cut の核心——音と摩擦を消し、毛束の重さ自体を再構築するための姿勢、刃の引き、呼吸の同期について。',
-    bodyEn: 'An advanced session that deepens applied technique and theory. At the heart of Stealth cut—posture, blade pull, and breath in sync to erase sound and friction and reconstruct the weight of the strand itself.',
-  },
-  {
-    num: '03',
-    date: 'Coming Soon',
-    weekday: '——',
-    name: '始考 Vol. 03',
-    category: 'Theory',
-    locJa: '場所未定',
-    locEn: 'Venue TBD',
-    time: '——',
-    capacityJa: '——',
-    capacityEn: '——',
-    price: null,
-    bodyJa: '感覚を理論に降ろし、再び現場に戻すための対話型セミナー。次回開催は調整中。詳細は会員ニュースレターで先行案内します。',
-    bodyEn: 'A dialogue-based seminar that lowers sensation into theory and returns it to the field. The next session is being scheduled. Details will be announced first to members via newsletter.',
-    upcoming: true,
+    date: '2026.06.30',
+    name: 'Razor Basics Seminar',
+    locJa: '福岡 / Fukuoka',
+    locEn: 'Fukuoka / Fukuoka',
+    status: 'UPCOMING',
+    bodyJa: '福岡で開催する Razor Basics Seminar。レザーカットの理論と実践を、対面で深く学ぶセッション。',
+    bodyEn: 'Razor Basics Seminar in Fukuoka—a session to deepen the theory and practice of razor cutting in person.',
   },
 ];
 
 const pastSeminars = [
   {
+    num: '01',
+    date: '2026.01',
+    name: 'Razor Basics Seminar',
+    locJa: '東京 / Tokyo',
+    locEn: 'Tokyo / Tokyo',
+    status: 'PAST',
+  },
+  {
+    num: '02',
+    date: '2026.02',
+    name: 'Razor Basics Seminar',
+    locJa: '名古屋 / Nagoya',
+    locEn: 'Nagoya / Nagoya',
+    status: 'PAST',
+  },
+  {
+    num: '03',
+    date: '2026.03',
+    name: 'Razor Basics Seminar',
+    locJa: '台湾 / Taiwan',
+    locEn: 'Taiwan / Taiwan',
+    status: 'PAST',
+  },
+  {
     num: '04',
-    date: '2026.04.18',
-    name: 'Razor Basics Vol. 02',
-    locJa: '福岡 / ill 天神大名',
-    locEn: 'Fukuoka / ill Tenjin Daimyo',
-    attendeesJa: '12名',
-    attendeesEn: '12 seats',
+    date: '2026.04',
+    name: 'Razor Basics Seminar',
+    locJa: '台湾 / Taiwan',
+    locEn: 'Taiwan / Taiwan',
+    status: 'PAST',
   },
   {
     num: '05',
-    date: '2026.02.21',
-    name: 'Razor Basics Vol. 01',
-    locJa: '福岡 / ill 天神大名',
-    locEn: 'Fukuoka / ill Tenjin Daimyo',
-    attendeesJa: '10名',
-    attendeesEn: '10 seats',
+    date: '2026.05',
+    name: 'Razor Basics Seminar',
+    locJa: '香港 / Hong Kong',
+    locEn: 'Hong Kong / Hong Kong',
+    status: 'PAST',
   },
   {
     num: '06',
-    date: '2025.12.15',
-    name: '始考 Vol. 02',
-    locJa: '東京 / FAGAN PARK',
-    locEn: 'Tokyo / FAGAN PARK',
-    attendeesJa: '8名',
-    attendeesEn: '8 seats',
-  },
-  {
-    num: '07',
-    date: '2025.09.10',
-    name: '始考 Vol. 01',
-    locJa: '福岡 / Studio Loft',
-    locEn: 'Fukuoka / Studio Loft',
-    attendeesJa: '6名',
-    attendeesEn: '6 seats',
+    date: '2026.06',
+    name: 'Razor Basics Seminar',
+    locJa: '香港 / Hong Kong',
+    locEn: 'Hong Kong / Hong Kong',
+    status: 'PAST',
   },
 ];
 
@@ -147,32 +123,25 @@ export default function SeminarPage() {
         </div>
 
         {upcomingSeminars.map((s) => (
-          <article key={s.num} className="seminar-detail about-fade-up" style={{display:'grid', gridTemplateColumns:'200px 1fr 200px', gap:60, padding:'56px 0', borderTop:'1px solid #C4BFB7', alignItems:'start', opacity: s.upcoming ? 0.45 : 1}}>
+          <article key={s.num} className="seminar-detail about-fade-up" style={{display:'grid', gridTemplateColumns:'200px 1fr 200px', gap:60, padding:'56px 0', borderTop:'1px solid #C4BFB7', alignItems:'start'}}>
             <div>
-              <div style={{fontSize:10, color:'#9A948C', letterSpacing:'0.22em', marginBottom:14}}>{s.num} / {s.category}</div>
+              <div style={{fontSize:10, color:'#9A948C', letterSpacing:'0.22em', marginBottom:14}}>{s.num} / {s.status}</div>
               <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:28, fontWeight:300, lineHeight:1.1, letterSpacing:'-0.01em'}}>{s.date}</div>
-              <div style={{fontSize:9, color:'#9A948C', letterSpacing:'0.3em', marginTop:6}}>{s.weekday}</div>
             </div>
 
             <div>
               <h2 className="seminar-detail-title" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(22px,2.8vw,36px)', fontWeight:300, lineHeight:1.2, marginBottom:20, color:'#1C1A17'}}>{s.name}</h2>
               <div style={{display:'flex', flexWrap:'wrap', gap:24, marginBottom:24, fontSize:10, color:'#9A948C', letterSpacing:'0.18em', textTransform:'uppercase'}}>
                 <span>{isEn ? s.locEn : s.locJa}</span>
-                <span>{s.time}</span>
-                <span>{isEn ? s.capacityEn : s.capacityJa}</span>
+                <span>{s.status}</span>
               </div>
               <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', maxWidth:540}}>{isEn ? s.bodyEn : s.bodyJa}</p>
             </div>
 
             <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:18}}>
-              <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300}}>
-                {s.price !== null ? `¥${s.price.toLocaleString()}` : '——'}
-              </span>
-              {s.price !== null ? (
-                <a href="/shop" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'14px 24px', textDecoration:'none', whiteSpace:'nowrap'}}>Get Ticket →</a>
-              ) : (
-                <span style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#9A948C', border:'1px solid #C4BFB7', padding:'14px 24px', background:'#E5E2DA', whiteSpace:'nowrap'}}>Coming Soon</span>
-              )}
+              <a href="/shop" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'14px 24px', textDecoration:'none', whiteSpace:'nowrap'}}>
+                {isEn ? 'Apply →' : '申し込む →'}
+              </a>
             </div>
           </article>
         ))}
@@ -190,7 +159,7 @@ export default function SeminarPage() {
             <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.18em'}}>{s.num}</span>
             <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:14, fontWeight:300}}>{s.date}</span>
             <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(15px,1.8vw,22px)', fontWeight:300}}>{s.name}</span>
-            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{isEn ? s.locEn : s.locJa} · {isEn ? s.attendeesEn : s.attendeesJa}</span>
+            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{isEn ? s.locEn : s.locJa} · {s.status}</span>
           </div>
         ))}
       </section>
