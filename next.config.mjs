@@ -4,7 +4,6 @@ const nextConfig = {
     qualities: [100],
     minimumCacheTTL: 60,
     unoptimized: false,
-    formats: ['image/jpeg'],
   },
 };
 
