@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 import Nav from '../components/Nav';
 import { useLang } from '../context/LangContext';
@@ -84,45 +83,7 @@ export default function ContactPage() {
 
       {/* FORM */}
       <section className="section-pad" style={{padding:'120px 80px'}}>
-        <div className="contact-grid" style={{display:'grid', gridTemplateColumns:'1fr 1.6fr', gap:120, alignItems:'start'}}>
-
-          {/* LEFT INFO */}
-          <aside className="about-fade-up">
-            <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:28, display:'flex', alignItems:'center', gap:16}}>
-              <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
-              Info
-            </div>
-
-            <div style={{display:'flex', flexDirection:'column', gap:36, marginBottom:48}}>
-              <div>
-                <div style={{fontSize:9, color:'#9A948C', letterSpacing:'0.32em', textTransform:'uppercase', marginBottom:10}}>Email</div>
-                <a href="mailto:benjiown730@gmail.com" style={{fontFamily:'Cormorant Garamond, serif', fontSize:18, fontWeight:300, color:'#1C1A17', textDecoration:'none', letterSpacing:'0.01em'}}>benjiown730@gmail.com</a>
-              </div>
-              <div>
-                <div style={{fontSize:9, color:'#9A948C', letterSpacing:'0.32em', textTransform:'uppercase', marginBottom:10}}>Studio</div>
-                <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#1C1A17', lineHeight:1.9}}>
-                  〒810-0041<br/>
-                  福岡市中央区大名 X-X-X<br/>
-                  ill 天神大名 内
-                </p>
-              </div>
-              <div>
-                <div style={{fontSize:9, color:'#9A948C', letterSpacing:'0.32em', textTransform:'uppercase', marginBottom:10}}>Hours</div>
-                <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#1C1A17', lineHeight:1.9}}>
-                  Tue — Sat<br/>
-                  11:00 — 19:00 JST
-                </p>
-              </div>
-            </div>
-
-            {/* Decorative element */}
-            <div style={{width:72, height:72, border:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'center'}}>
-              <div style={{width:44, height:44, borderRadius:'50%', border:'1px solid #C9956A'}}></div>
-            </div>
-          </aside>
-
-          {/* RIGHT FORM */}
-          <div className="about-fade-up">
+        <div className="contact-form-wrap about-fade-up" style={{maxWidth:720, margin:'0 auto'}}>
             {submitted ? (
               <div style={{border:'1px solid #C9956A', padding:'48px 36px', background:'#E5E2DA', textAlign:'center'}}>
                 <span style={{width:8, height:8, borderRadius:'50%', background:'#C9956A', display:'inline-block', marginBottom:20}}></span>
@@ -203,7 +164,6 @@ export default function ContactPage() {
                 </div>
               </form>
             )}
-          </div>
         </div>
       </section>
 
@@ -224,10 +184,6 @@ export default function ContactPage() {
           }
           .section-pad {
             padding: 72px 24px !important;
-          }
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-            gap: 64px !important;
           }
         }
       `}</style>
