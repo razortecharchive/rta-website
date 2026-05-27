@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     qualities: [100],
     minimumCacheTTL: 60,
-    unoptimized: false,
+    unoptimized: true,
   },
 };
 
