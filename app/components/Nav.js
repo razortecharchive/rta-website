@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useCart } from '../context/CartContext';
 import { useLang } from '../context/LangContext';
 
 const menuItems = [
@@ -14,6 +15,7 @@ const menuItems = [
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { lang, setLang } = useLang();
+  const { cartCount } = useCart();
 
   return (
     <>
@@ -74,9 +76,14 @@ export default function Nav() {
           <button aria-label="Account" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </button>
-          <button type="button" aria-label="Cart" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
+          <a href="/cart" aria-label="Cart" style={{position:'relative', display:'flex', alignItems:'center', opacity:0.5, textDecoration:'none'}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          </button>
+            {cartCount > 0 && (
+              <span style={{position:'absolute', top:-6, right:-8, minWidth:16, height:16, padding:'0 4px', fontSize:8, background:'#C9956A', color:'white', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', lineHeight:1}}>
+                {cartCount}
+              </span>
+            )}
+          </a>
         </div>
       </nav>
 
