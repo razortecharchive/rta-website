@@ -13,6 +13,8 @@ export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,14 +32,34 @@ export default function ContactPage() {
     return e;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const e2 = validate();
     if (Object.keys(e2).length) {
       setErrors(e2);
       return;
     }
-    setSubmitted(true);
+
+    setLoading(true);
+    setSubmitError('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        throw new Error('Send failed');
+      }
+
+      setSubmitted(true);
+    } catch {
+      setSubmitError(isEn ? 'Failed to send message.' : '送信に失敗しました。');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,7 +96,7 @@ export default function ContactPage() {
             <div style={{display:'flex', flexDirection:'column', gap:36, marginBottom:48}}>
               <div>
                 <div style={{fontSize:9, color:'#9A948C', letterSpacing:'0.32em', textTransform:'uppercase', marginBottom:10}}>Email</div>
-                <a href="mailto:hello@rta.studio" style={{fontFamily:'Cormorant Garamond, serif', fontSize:18, fontWeight:300, color:'#1C1A17', textDecoration:'none', letterSpacing:'0.01em'}}>hello@rta.studio</a>
+                <a href="mailto:benjiown730@gmail.com" style={{fontFamily:'Cormorant Garamond, serif', fontSize:18, fontWeight:300, color:'#1C1A17', textDecoration:'none', letterSpacing:'0.01em'}}>benjiown730@gmail.com</a>
               </div>
               <div>
                 <div style={{fontSize:9, color:'#9A948C', letterSpacing:'0.32em', textTransform:'uppercase', marginBottom:10}}>Studio</div>
@@ -104,7 +126,9 @@ export default function ContactPage() {
             {submitted ? (
               <div style={{border:'1px solid #C9956A', padding:'48px 36px', background:'#E5E2DA', textAlign:'center'}}>
                 <span style={{width:8, height:8, borderRadius:'50%', background:'#C9956A', display:'inline-block', marginBottom:20}}></span>
-                <h2 style={{fontFamily:'Cormorant Garamond, serif', fontSize:28, fontWeight:300, marginBottom:14, letterSpacing:'-0.01em'}}>Thank you.</h2>
+                <h2 style={{fontFamily:'Cormorant Garamond, serif', fontSize:28, fontWeight:300, marginBottom:14, letterSpacing:'-0.01em'}}>
+                  {isEn ? 'Thank you.' : '送信しました。'}
+                </h2>
                 <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#9A948C', lineHeight:2}}>
                   {isEn ? (
                     <>We have received your message.<br />We will reply within a few business days.</>
@@ -151,23 +175,31 @@ export default function ContactPage() {
                       ? 'Your submission will be used only to respond to your inquiry.'
                       : '送信内容は、お問い合わせ対応の目的でのみ使用します。'}
                   </p>
+                <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:12}}>
+                  {submitError && (
+                    <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#C9956A', letterSpacing:'0.04em', width:'100%', textAlign:'right'}}>
+                      {submitError}
+                    </p>
+                  )}
                   <button
                     type="submit"
+                    disabled={loading}
                     style={{
                       fontFamily:'DM Sans, sans-serif',
                       fontSize:9,
                       letterSpacing:'0.32em',
                       textTransform:'uppercase',
-                      color:'#1C1A17',
+                      color: loading ? '#9A948C' : '#1C1A17',
                       border:'1px solid #C4BFB7',
                       padding:'18px 44px',
                       background:'transparent',
-                      cursor:'pointer',
+                      cursor: loading ? 'wait' : 'pointer',
                       whiteSpace:'nowrap',
                     }}
                   >
-                    Send Message →
+                    {loading ? 'Sending...' : 'Send Message →'}
                   </button>
+                </div>
                 </div>
               </form>
             )}
