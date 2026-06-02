@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react';
 import Nav from './components/Nav';
+import HeroImage from './components/HeroImage';
 import { useLang } from './context/LangContext';
 import { useGsapPageScroll } from './hooks/useGsapPageScroll';
 
@@ -35,16 +36,8 @@ export default function Home() {
       <Nav />
 
       {/* HERO */}
-      <section className="about-page-top" style={{position:'relative', width:'100vw', height:'100vh', background:'#EDEBE5', overflow:'hidden'}}>
-        <div className="about-parallax-wrap" style={{position:'absolute', inset:0, overflow:'hidden'}}>
-          <div className="parallax-image-inner" style={{position:'absolute', left:0, top:'-7.5%', width:'100%', height:'115%'}}>
-            <img
-              src="/hero.png"
-              alt="Razor Tech Archive"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
-            />
-          </div>
-        </div>
+      <section className="about-page-top" style={{position:'relative', width:'100%', height:'100vh', background:'#EDEBE5', overflow:'hidden'}}>
+        <HeroImage src="/hero.jpg" alt="Razor Tech Archive" parallax priority />
         <div style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(237,235,229,0) 55%, rgba(237,235,229,0.85) 100%)', zIndex:5, pointerEvents:'none'}}></div>
         <span className="hero-vert about-fade-up" style={{position:'absolute', left:24, top:'50%', transform:'translateY(-50%) rotate(180deg)', writingMode:'vertical-rl', fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#C4BFB7', zIndex:10}}>Archive</span>
         <div className="hero-title-block" style={{position:'absolute', left:48, top:'60%', transform:'translateY(-50%)', zIndex:10}}>

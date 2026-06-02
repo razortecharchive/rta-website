@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Nav from '../components/Nav';
+import HeroImage from '../components/HeroImage';
 import { useLang } from '../context/LangContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -149,17 +150,11 @@ export default function AboutPage() {
           background: '#EDEBE5',
         }}
       >
-        <div style={{ position: 'absolute', inset: 0 }}>
-          <img
-            src="/about-hero.jpg"
-            alt="Razor Tech Archive — About"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
-          />
-          <div
-            aria-hidden="true"
-            style={{ position: 'absolute', inset: 0, background: 'rgba(28,26,23,0.22)' }}
-          />
-        </div>
+        <HeroImage src="/about-hero.jpg" alt="Razor Tech Archive — About" priority />
+        <div
+          aria-hidden="true"
+          style={{ position: 'absolute', inset: 0, background: 'rgba(28,26,23,0.22)', zIndex: 1 }}
+        />
 
         <div
           className="about-hero-sns"

@@ -58,13 +58,13 @@ export function useGsapPageScroll() {
       }
 
       parallaxWraps.forEach((wrap) => {
-        const img = wrap.querySelector('img');
-        if (!img) return;
+        const inner = wrap.querySelector('.parallax-image-inner');
+        if (!inner) return;
         gsap.fromTo(
-          img,
-          { y: -64 },
+          inner,
+          { y: '-8%' },
           {
-            y: 64,
+            y: '8%',
             ease: 'none',
             scrollTrigger: {
               trigger: wrap,
