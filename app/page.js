@@ -6,9 +6,14 @@ import { useLang } from './context/LangContext';
 import { useGsapPageScroll } from './hooks/useGsapPageScroll';
 
 const seminarsData = [
-  { num: '01', date: '2026.06.15', name: 'Razor Basics Vol. 03', locJa: '福岡 / ill 天神大名', locEn: 'Fukuoka / ill Tenjin Daimyo', price: '¥18,000' },
-  { num: '02', date: '2026.07.20', name: 'Advanced Razor Tech', locJa: '東京 / TBA', locEn: 'Tokyo / TBA', price: '¥24,000' },
-  { num: '03', date: 'Coming Soon', name: '始考 Vol. 03', locJa: '場所未定', locEn: 'Venue TBD', price: '——', dim: true },
+  {
+    num: '01',
+    date: '2026.06.30',
+    name: 'Razor Basics Seminar',
+    locJa: '福岡 / Fukuoka',
+    locEn: 'Fukuoka / Fukuoka',
+    status: 'UPCOMING',
+  },
 ];
 
 export default function Home() {
@@ -77,11 +82,11 @@ export default function Home() {
           Upcoming Seminars
         </div>
         {seminars.map((s) => (
-          <a key={s.num} href="/seminar" className="seminar-item about-fade-up" style={{display:'grid', gridTemplateColumns:'180px 1fr auto auto', alignItems:'center', gap:48, padding:'36px 0', borderBottom:'1px solid #C4BFB7', textDecoration:'none', color:'#1C1A17', opacity: s.dim ? 0.35 : 1}}>
+          <a key={s.num} href="/seminar" className="seminar-item about-fade-up" style={{display:'grid', gridTemplateColumns:'180px 1fr auto auto', alignItems:'center', gap:48, padding:'36px 0', borderBottom:'1px solid #C4BFB7', textDecoration:'none', color:'#1C1A17'}}>
             <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{s.num} — {s.date}</span>
             <span className="seminar-name" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.4vw,30px)', fontWeight:300, color:'#1C1A17'}}>{s.name}</span>
             <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'#9A948C', letterSpacing:'0.08em'}}>{s.loc}</span>
-            <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:16, fontWeight:300, textAlign:'right', opacity:0.6}}>{s.price}</span>
+            <span style={{fontFamily:'DM Sans, sans-serif', fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', textAlign:'right', color:'#C9956A'}}>{s.status}</span>
           </a>
         ))}
       </section>
