@@ -92,9 +92,12 @@ export default function Home() {
         </div>
         <div className="about-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:120}}>
           <div>
-            <div className="about-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
-              The Art<br/>of <em style={{fontStyle:'italic', color:'#C9956A'}}>Stealth</em><br/>Cut
+            <div className="about-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:20}}>
+              Archive<br/>the <em style={{fontStyle:'italic', color:'#C9956A'}}>Sense</em>.
             </div>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, letterSpacing:'0.12em', color:'#9A948C', marginBottom:36}}>
+              {isEn ? 'Record sensation.' : '感覚を、記録する。'}
+            </p>
             <div className="about-fade-up" style={{width:72, height:72, border:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'center'}}>
               <div style={{width:44, height:44, borderRadius:'50%', border:'1px solid #C4BFB7'}}></div>
             </div>
@@ -102,26 +105,23 @@ export default function Home() {
           <div style={{paddingTop:8}}>
             <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>
               {isEn
-                ? 'Razor Tech Archive (RTA) is an educational platform dedicated to teaching and advancing razor cutting.'
-                : 'Razor Tech Archive（RTA）は、レザーカット技術の教育・普及を専門とする教育プラットフォームです。'}
+                ? 'Much education teaches cutting methods and procedures.'
+                : '多くの教育は、切り方と手順を教える。'}
             </p>
             <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>
               {isEn ? (
-                <>
-                  <strong style={{color:'#1C1A17', fontWeight:300}}>&ldquo;stealth cut&rdquo;</strong>
-                  — quiet, frictionless, exact. Like an owl in flight, the technique lives in stillness; we pursue it through both theory and sensation.
-                </>
+                <>But what RTA seeks to preserve is how you <strong style={{color:'#1C1A17', fontWeight:300}}>see hair</strong>.</>
               ) : (
-                <>
-                  <strong style={{color:'#1C1A17', fontWeight:300}}>「stealth cut」</strong>
-                  ——音もなく、摩擦もなく、ただ正確に。フクロウの飛翔のように静寂の中に宿る技術を、理論と感覚の両軸から追求する。
-                </>
+                <>しかしRTAが保存したいのは、髪の<strong style={{color:'#1C1A17', fontWeight:300}}>「見方」</strong>だ。</>
               )}
             </p>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>
               {isEn
-                ? 'Through seminars, archive content, and a community of practitioners, we propose a new baseline for cutting craft.'
-                : 'セミナー、アーカイブコンテンツ、技術者コミュニティを通じて、カット技術の新しい基準を提案します。'}
+                ? 'We do not let technique end as sensation alone. We observe, theorize, and translate into reproducibility.'
+                : '技術を感覚で終わらせない。観察し、理論化し、再現性へ落とし込む。'}
+            </p>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>
+              {isEn ? 'From sensation, to intention.' : '感覚から、意図へ。'}
             </p>
           </div>
         </div>
