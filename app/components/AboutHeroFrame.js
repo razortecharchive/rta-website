@@ -1,18 +1,33 @@
-const FRAME = '#E8DFD0';
-const INK = '#2A2520';
-const MUTED = '#8A8278';
-const OUTER = '#343330';
+const HERO = {
+  outer: '#C9BFAD',
+  frame: '#F1EBDF',
+  frameBorder: '#b8ac96',
+  ink: '#2a2318',
+  sub: '#6a6254',
+};
 
-function Micro({ children, style }) {
+const FRAME_CLIP = `polygon(
+  0 16px, 16px 0,
+  calc(38% - 8px) 0, 38% 7px, calc(38% + 8px) 0,
+  calc(62% - 8px) 0, 62% 7px, calc(62% + 8px) 0,
+  calc(100% - 16px) 0, 100% 16px,
+  100% 40%, calc(100% - 7px) 44%, 100% 48%,
+  100% calc(100% - 16px), calc(100% - 16px) 100%,
+  62% 100%, calc(62% - 7px) calc(100% - 7px), calc(62% - 14px) 100%,
+  16px 100%, 0 calc(100% - 16px),
+  0 52%, 7px 48%, 0 44%
+)`;
+
+function Micro({ children, style, ink }) {
   return (
     <span
       style={{
         fontFamily: 'DM Sans, sans-serif',
         fontSize: 7,
-        letterSpacing: '0.22em',
+        letterSpacing: '0.2em',
         textTransform: 'uppercase',
-        color: MUTED,
-        lineHeight: 1.6,
+        color: ink ? HERO.ink : HERO.sub,
+        lineHeight: 1.5,
         ...style,
       }}
     >
@@ -21,35 +36,18 @@ function Micro({ children, style }) {
   );
 }
 
-function Crosshair({ style }) {
+function CheckerFlag({ side = 'left' }) {
+  const cells = side === 'left' ? [1, 0, 1, 0, 1] : [0, 1, 0, 1, 0];
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" style={style}>
-      <circle cx="7" cy="7" r="4.5" fill="none" stroke={INK} strokeWidth="0.5" />
-      <line x1="7" y1="0" x2="7" y2="14" stroke={INK} strokeWidth="0.5" />
-      <line x1="0" y1="7" x2="14" y2="7" stroke={INK} strokeWidth="0.5" />
-      <circle cx="7" cy="7" r="0.8" fill={INK} />
-    </svg>
-  );
-}
-
-function Checker({ style }) {
-  return (
-    <div
-      aria-hidden="true"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 5px)',
-        gridTemplateRows: 'repeat(2, 5px)',
-        ...style,
-      }}
-    >
-      {Array.from({ length: 8 }, (_, i) => (
+    <div aria-hidden="true" style={{ display: 'flex', gap: 0 }}>
+      {cells.map((on, i) => (
         <div
           key={i}
           style={{
             width: 5,
             height: 5,
-            background: i % 2 === 0 ? INK : 'transparent',
+            background: on ? HERO.ink : 'transparent',
+            border: `0.5px solid ${HERO.frameBorder}`,
           }}
         />
       ))}
@@ -57,263 +55,176 @@ function Checker({ style }) {
   );
 }
 
-export default function AboutHeroFrame({
-  isEn,
-  heroLabel,
-  heroTagline,
-  archiveLine,
-}) {
-  const imageLabel = isEn ? 'Stealth Cut' : 'Stealth Cut';
-  const posterSub = isEn ? 'Manifesto' : 'Manifesto';
+function CornerIndex({ left, right }) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 14,
+        paddingTop: 10,
+        borderTop: `0.5px solid ${HERO.frameBorder}`,
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ width: 4, height: 4, borderRadius: '50%', background: HERO.frame, border: `0.5px solid ${HERO.ink}` }} />
+        <span style={{ width: 4, height: 4, borderRadius: '50%', background: HERO.ink }} />
+        <Micro ink>{left}</Micro>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <Micro ink>{right}</Micro>
+        <span style={{ width: 4, height: 4, borderRadius: '50%', background: HERO.frame, border: `0.5px solid ${HERO.ink}` }} />
+        <span style={{ width: 4, height: 4, borderRadius: '50%', background: HERO.ink }} />
+      </div>
+    </div>
+  );
+}
 
+export default function AboutHeroFrame({ isEn }) {
   return (
     <section
       className="about-hero about-page-top"
       style={{
-        position: 'relative',
-        width: '100%',
-        minHeight: '100vh',
-        padding: '88px 16px 32px',
-        background: OUTER,
+        padding: '88px 16px 40px',
+        background: HERO.outer,
         display: 'flex',
-        alignItems: 'center',
         justifyContent: 'center',
-        boxSizing: 'border-box',
       }}
     >
       <div
         className="about-hero-frame about-fade-up"
         style={{
-          position: 'relative',
           width: '100%',
-          maxWidth: 920,
-          background: FRAME,
-          borderRadius: 22,
-          padding: '18px 18px 22px',
-          color: INK,
+          maxWidth: 560,
+          background: HERO.frame,
+          border: `0.5px solid ${HERO.frameBorder}`,
+          clipPath: FRAME_CLIP,
+          WebkitClipPath: FRAME_CLIP,
+          padding: '20px 18px 18px',
+          color: HERO.ink,
         }}
       >
-        {/* Top metadata row */}
+        {/* Top label row */}
         <div
-          className="about-hero-frame-top"
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr auto 1fr',
-            alignItems: 'start',
-            gap: 12,
-            marginBottom: 14,
+            gridTemplateColumns: 'auto 1fr auto',
+            alignItems: 'center',
+            gap: 8,
+            marginBottom: 12,
           }}
         >
-          <Micro style={{ justifySelf: 'start' }}>Razor Tech Archive</Micro>
-          <div style={{ textAlign: 'center', justifySelf: 'center' }}>
-            <div style={{ fontSize: 6, color: MUTED, marginBottom: 4, letterSpacing: '0.3em' }}>▼</div>
-            <div
+          <Micro ink style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            n01 <span style={{ fontSize: 6 }}>✳</span>
+          </Micro>
+          <div style={{ textAlign: 'center' }}>
+            <span style={{ fontSize: 6, color: HERO.sub, marginRight: 4 }}>✳</span>
+            <span
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 11,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: INK,
+                fontSize: 13,
+                letterSpacing: '0.12em',
+                color: HERO.ink,
               }}
             >
-              RTA
-            </div>
+              RTA<sup style={{ fontSize: 7 }}>®</sup>
+            </span>
+            <span style={{ fontSize: 6, color: HERO.sub, marginLeft: 4 }}>✳</span>
           </div>
-          <Micro style={{ justifySelf: 'end', textAlign: 'right' }}>{heroLabel}</Micro>
+          <Micro ink style={{ textAlign: 'right' }}>
+            <span style={{ fontSize: 6 }}>✳</span> m2026
+          </Micro>
         </div>
 
-        {/* Decorative row */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: 10,
-            padding: '0 4px',
-          }}
-        >
-          <Checker />
-          <Micro>{archiveLine}</Micro>
-          <Checker />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+          <CheckerFlag side="left" />
+          <CheckerFlag side="right" />
         </div>
 
-        {/* Image window */}
-        <div
-          className="about-hero-window"
-          style={{
-            position: 'relative',
-            marginBottom: 0,
-          }}
-        >
-          <Crosshair style={{ position: 'absolute', top: 8, left: 8, zIndex: 3, opacity: 0.55 }} />
-          <Crosshair style={{ position: 'absolute', top: 8, right: 8, zIndex: 3, opacity: 0.55 }} />
-
-          <div
+        {/* Photo */}
+        <div style={{ position: 'relative', marginBottom: 8 }}>
+          <img
+            src="/about-hero.jpg"
+            alt="Razor Tech Archive — About"
             style={{
-              position: 'absolute',
-              top: 0,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 4,
-              background: FRAME,
-              padding: '6px 20px 8px',
-              clipPath: 'polygon(8% 0, 92% 0, 100% 100%, 0 100%)',
-              minWidth: 140,
+              width: '100%',
+              height: 190,
+              objectFit: 'cover',
+              objectPosition: 'center',
+              display: 'block',
+            }}
+            fetchPriority="high"
+            loading="eager"
+            draggable={false}
+          />
+        </div>
+        <Micro ink style={{ display: 'block', textAlign: 'center', marginBottom: 16 }}>
+          Stealth Cut
+        </Micro>
+
+        {/* Title row */}
+        <div
+          className="about-hero-title-row"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1.4fr) auto minmax(0, 1fr)',
+            alignItems: 'end',
+            gap: 8,
+            marginBottom: 10,
+          }}
+        >
+          <div>
+            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 300, color: HERO.ink, lineHeight: 1 }}>01</div>
+            <Micro>{isEn ? 'Archive No.' : 'Archive No.'}</Micro>
+          </div>
+          <span style={{ color: HERO.sub, fontSize: 8, paddingBottom: 4 }}>✣</span>
+          <h1
+            className="about-animate-title"
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: 'clamp(20px, 5vw, 28px)',
+              fontWeight: 300,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              color: HERO.ink,
+              margin: 0,
+              lineHeight: 1.05,
               textAlign: 'center',
             }}
           >
-            <Micro style={{ color: INK, letterSpacing: '0.28em' }}>{imageLabel}</Micro>
-          </div>
-
-          <div
-            className="about-parallax-wrap"
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'clamp(240px, 42vh, 420px)',
-              overflow: 'hidden',
-              clipPath:
-                'polygon(0 6%, 34% 6%, 38% 0, 62% 0, 66% 6%, 100% 6%, 100% 94%, 66% 94%, 62% 100%, 38% 100%, 34% 94%, 0 94%)',
-            }}
-          >
-            <div className="parallax-image-inner" style={{ position: 'absolute', inset: 0 }}>
-              <img
-                src="/about-hero.jpg"
-                alt="Razor Tech Archive — About"
-                className="hero-image"
-                fetchPriority="high"
-                loading="eager"
-                draggable={false}
-              />
-            </div>
-          </div>
-
-          <Crosshair style={{ position: 'absolute', bottom: 8, left: 8, zIndex: 3, opacity: 0.55 }} />
-          <Crosshair style={{ position: 'absolute', bottom: 8, right: 8, zIndex: 3, opacity: 0.55 }} />
-
-          <Micro
-            style={{
-              position: 'absolute',
-              left: 12,
-              bottom: -18,
-              zIndex: 2,
-              fontSize: 6,
-            }}
-          >
-            n01
-          </Micro>
-          <Micro
-            style={{
-              position: 'absolute',
-              right: 12,
-              bottom: -18,
-              zIndex: 2,
-              fontSize: 6,
-            }}
-          >
-            m2026
-          </Micro>
-        </div>
-
-        {/* Bottom title block */}
-        <div
-          className="about-hero-bottom"
-          style={{
-            marginTop: 28,
-            paddingTop: 20,
-            borderTop: `0.5px solid ${MUTED}`,
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1fr)',
-            alignItems: 'end',
-            gap: 12,
-          }}
-        >
-          <div style={{ justifySelf: 'start' }}>
-            <div
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 22,
-                fontWeight: 300,
-                lineHeight: 1,
-                color: INK,
-                marginBottom: 4,
-              }}
-            >
-              01
-            </div>
-            <Micro>{isEn ? 'Archive No.' : 'Archive No.'}</Micro>
-          </div>
-
-          <div style={{ textAlign: 'center', justifySelf: 'center', maxWidth: 420 }}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 10,
-                marginBottom: 8,
-              }}
-            >
-              <span style={{ fontSize: 8, color: MUTED }}>✦</span>
-              <h1
-                className="about-animate-title"
-                style={{
-                  fontFamily: 'Cormorant Garamond, serif',
-                  fontSize: 'clamp(22px, 4.5vw, 36px)',
-                  fontWeight: 300,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  color: INK,
-                  margin: 0,
-                  lineHeight: 1.05,
-                }}
-              >
-                The Art of <em style={{ fontStyle: 'italic', textTransform: 'none' }}>Stealth</em> Cut.
-              </h1>
-              <span style={{ fontSize: 8, color: MUTED }}>✦</span>
-            </div>
-            <Micro style={{ display: 'block', marginBottom: 6 }}>{posterSub}</Micro>
-            <p
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 'clamp(11px, 2vw, 13px)',
-                fontStyle: 'italic',
-                fontWeight: 300,
-                color: MUTED,
-                margin: 0,
-                letterSpacing: '0.02em',
-                lineHeight: 1.5,
-              }}
-            >
-              {heroTagline}
-            </p>
-          </div>
-
-          <div style={{ justifySelf: 'end', textAlign: 'right' }}>
-            <div
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 22,
-                fontWeight: 300,
-                lineHeight: 1,
-                color: INK,
-                marginBottom: 4,
-              }}
-            >
-              2026
-            </div>
+            Stealth Cut
+          </h1>
+          <span style={{ color: HERO.sub, fontSize: 8, paddingBottom: 4 }}>✣</span>
+          <div style={{ textAlign: 'right' }}>
+            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 300, color: HERO.ink, lineHeight: 1 }}>26</div>
             <Micro>{isEn ? 'Date' : 'Date'}</Micro>
           </div>
         </div>
 
-        {/* Corner stars */}
-        <span aria-hidden="true" style={{ position: 'absolute', left: 14, bottom: 14, fontSize: 9, color: MUTED }}>
-          ✦
-        </span>
-        <span aria-hidden="true" style={{ position: 'absolute', right: 14, bottom: 14, fontSize: 9, color: MUTED }}>
-          ✦
-        </span>
+        <Micro ink style={{ display: 'block', textAlign: 'center', letterSpacing: '0.28em' }}>
+          The Art of — RTA Manifesto
+        </Micro>
+
+        <CornerIndex left="17 / 37" right="28 / 23" />
       </div>
+
+      <style>{`
+        .about-hero-frame {
+          clip-path: ${FRAME_CLIP};
+          -webkit-clip-path: ${FRAME_CLIP};
+        }
+        @media (max-width: 768px) {
+          .about-hero-title-row {
+            grid-template-columns: 1fr !important;
+            text-align: center;
+            justify-items: center;
+          }
+          .about-hero-title-row > div:last-child {
+            text-align: center !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
