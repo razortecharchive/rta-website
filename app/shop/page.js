@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Nav from '../components/Nav';
+import PageHero from '../components/PageHero';
 import { useCart } from '../context/CartContext';
 import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
@@ -72,21 +73,26 @@ export default function Shop() {
 
       <Nav />
 
-      {/* SHOP HEADER */}
-      <section className="shop-header about-page-top" style={{padding:'180px 80px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:36, display:'flex', alignItems:'center', gap:16}}>
-          <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
+      {/* SHOP HERO */}
+      <PageHero
+        src="/shop-hero.jpg"
+        alt="Razor Tech Archive — Shop"
+        contentClassName="shop-hero-content"
+        priority
+      >
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#FFFFFF', marginBottom:36, display:'flex', alignItems:'center', gap:16, opacity:0.85}}>
+          <span style={{width:18, height:1, background:'#FFFFFF', display:'inline-block', opacity:0.7}}></span>
           Shop — Tickets & Goods
         </div>
-        <h1 className="shop-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(48px,7vw,108px)', fontWeight:200, lineHeight:0.95, letterSpacing:'-0.02em', marginBottom:36}}>
-          Razor Tech<br/><em style={{fontStyle:'italic', color:'#C9956A'}}>Archive</em> Shop
+        <h1 className="shop-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(48px,7vw,108px)', fontWeight:200, lineHeight:0.95, letterSpacing:'-0.02em', marginBottom:36, color:'#FFFFFF'}}>
+          Razor Tech<br/><em style={{fontStyle:'italic', color:'#FFFFFF'}}>Archive</em> Shop
         </h1>
-        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:540}}>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:540, opacity:0.85}}>
           {isEn
             ? 'Seminar tickets and products that support the theory of Stealth cut. Learn the technique—and keep the tools at hand.'
             : 'セミナーチケットと、Stealth cut の理論を支えるためのプロダクト群。技術を学び、道具として手元に置く。'}
         </p>
-      </section>
+      </PageHero>
 
       {/* PRODUCTS GRID */}
       <section className="section-pad" style={{padding:'120px 80px'}}>
@@ -163,8 +169,11 @@ export default function Shop() {
 
       <style>{`
         @media (max-width: 768px) {
-          .shop-header {
-            padding: 140px 24px 60px !important;
+          .page-hero {
+            height: 50vh !important;
+          }
+          .shop-hero-content {
+            padding: 140px 24px 40px !important;
           }
           .shop-heading {
             font-size: 50px !important;

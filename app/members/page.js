@@ -1,6 +1,7 @@
 'use client';
 
 import Nav from '../components/Nav';
+import PageHero from '../components/PageHero';
 import SubscriptionPhilosophy from '../components/SubscriptionPhilosophy';
 import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
@@ -98,16 +99,24 @@ export default function MembersPage() {
     <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
       <Nav />
 
-      {/* 1. HEADER */}
-      <section className="section-pad members-page-top" style={{padding:'180px 80px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <SectionLabel>Members / Subscription</SectionLabel>
-        <h1 className="members-page-title about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px, 4vw, 56px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:20}}>
-          Join the <em style={{fontStyle:'italic', color:'#C9956A'}}>Archive</em>
+      {/* 1. HERO */}
+      <PageHero
+        src="/members-hero.jpg"
+        alt="Razor Tech Archive — Members"
+        contentClassName="members-hero-content"
+        priority
+      >
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#FFFFFF', marginBottom:36, display:'flex', alignItems:'center', gap:16, opacity:0.85}}>
+          <span style={{width:18, height:1, background:'#FFFFFF', display:'inline-block', opacity:0.7}}></span>
+          Members / Subscription
+        </div>
+        <h1 className="members-page-title about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px, 4vw, 56px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:20, color:'#FFFFFF'}}>
+          Join the <em style={{fontStyle:'italic', color:'#FFFFFF'}}>Archive</em>
         </h1>
-        <p className="about-fade-up" style={{fontFamily:'DM Sans, sans-serif', fontSize:10, letterSpacing:'0.38em', textTransform:'uppercase', color:'#9A948C'}}>
+        <p className="about-fade-up" style={{fontFamily:'DM Sans, sans-serif', fontSize:10, letterSpacing:'0.38em', textTransform:'uppercase', color:'#FFFFFF', opacity:0.85}}>
           Archive-Based Education System
         </p>
-      </section>
+      </PageHero>
 
       <SubscriptionPhilosophy />
 
@@ -299,7 +308,12 @@ export default function MembersPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .members-page-top { padding: 140px 24px 60px !important; }
+          .page-hero {
+            height: 50vh !important;
+          }
+          .members-hero-content {
+            padding: 140px 24px 40px !important;
+          }
           .section-pad { padding: 80px 24px !important; }
           .members-step-row {
             grid-template-columns: 1fr !important;

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Nav from '../components/Nav';
+import PageHero from '../components/PageHero';
 import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
@@ -65,21 +66,26 @@ export default function ContactPage() {
     <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
       <Nav />
 
-      {/* HEADER */}
-      <section className="contact-header about-page-top" style={{padding:'180px 80px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:36, display:'flex', alignItems:'center', gap:16}}>
-          <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
+      {/* HERO */}
+      <PageHero
+        src="/contact-hero.jpg"
+        alt="Razor Tech Archive — Contact"
+        contentClassName="contact-hero-content"
+        priority
+      >
+        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#FFFFFF', marginBottom:36, display:'flex', alignItems:'center', gap:16, opacity:0.85}}>
+          <span style={{width:18, height:1, background:'#FFFFFF', display:'inline-block', opacity:0.7}}></span>
           Contact — Get in Touch
         </div>
-        <h1 className="page-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36}}>
-          Let's <em style={{fontStyle:'italic', color:'#C9956A'}}>talk</em>.
+        <h1 className="page-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36, color:'#FFFFFF'}}>
+          Let's <em style={{fontStyle:'italic', color:'#FFFFFF'}}>talk</em>.
         </h1>
-        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#9A948C', lineHeight:2.1, maxWidth:560}}>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:560, opacity:0.85}}>
           {isEn
             ? 'Inquiries about seminars, collaboration, or dialogue on technique—please send a message anytime.'
             : 'セミナーへのお問い合わせ、コラボレーションのご相談、技術についての対話。お気軽にメッセージをお送りください。'}
         </p>
-      </section>
+      </PageHero>
 
       {/* FORM */}
       <section className="section-pad" style={{padding:'120px 80px'}}>
@@ -179,8 +185,11 @@ export default function ContactPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .contact-header {
-            padding: 140px 24px 60px !important;
+          .page-hero {
+            height: 50vh !important;
+          }
+          .contact-hero-content {
+            padding: 140px 24px 40px !important;
           }
           .section-pad {
             padding: 72px 24px !important;
