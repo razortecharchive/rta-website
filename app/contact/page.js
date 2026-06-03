@@ -185,9 +185,6 @@ export default function ContactPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .page-hero {
-            height: 50vh !important;
-          }
           .contact-hero-content {
             padding: 140px 24px 40px !important;
           }

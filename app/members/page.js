@@ -308,9 +308,6 @@ export default function MembersPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .page-hero {
-            height: 50vh !important;
-          }
           .members-hero-content {
             padding: 140px 24px 40px !important;
           }

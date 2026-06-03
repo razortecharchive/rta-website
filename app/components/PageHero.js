@@ -30,9 +30,9 @@ export default function PageHero({
       style={{
         position: 'relative',
         width: '100%',
-        height: '60vh',
+        height: '100vh',
+        background: '#EDEBE5',
         overflow: 'hidden',
-        borderBottom: '1px solid #C4BFB7',
       }}
     >
       {parallax ? (

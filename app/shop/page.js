@@ -169,9 +169,6 @@ export default function Shop() {
 
       <style>{`
         @media (max-width: 768px) {
-          .page-hero {
-            height: 50vh !important;
-          }
           .shop-hero-content {
             padding: 140px 24px 40px !important;
           }
