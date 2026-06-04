@@ -6,16 +6,18 @@ const HERO = {
   sub: '#6a6254',
 };
 
+// Slightly larger corner chamfers + notch depths so the ticket character
+// still reads at large desktop widths (not just on a small card).
 const FRAME_CLIP = `polygon(
-  0 16px, 16px 0,
-  calc(38% - 8px) 0, 38% 7px, calc(38% + 8px) 0,
-  calc(62% - 8px) 0, 62% 7px, calc(62% + 8px) 0,
-  calc(100% - 16px) 0, 100% 16px,
-  100% 40%, calc(100% - 7px) 44%, 100% 48%,
-  100% calc(100% - 16px), calc(100% - 16px) 100%,
-  62% 100%, calc(62% - 7px) calc(100% - 7px), calc(62% - 14px) 100%,
-  16px 100%, 0 calc(100% - 16px),
-  0 52%, 7px 48%, 0 44%
+  0 24px, 24px 0,
+  calc(38% - 12px) 0, 38% 10px, calc(38% + 12px) 0,
+  calc(62% - 12px) 0, 62% 10px, calc(62% + 12px) 0,
+  calc(100% - 24px) 0, 100% 24px,
+  100% 40%, calc(100% - 10px) 44%, 100% 48%,
+  100% calc(100% - 24px), calc(100% - 24px) 100%,
+  62% 100%, calc(62% - 10px) calc(100% - 10px), calc(62% - 20px) 100%,
+  24px 100%, 0 calc(100% - 24px),
+  0 52%, 10px 48%, 0 44%
 )`;
 
 function Micro({ children, style, ink }) {
@@ -23,7 +25,7 @@ function Micro({ children, style, ink }) {
     <span
       style={{
         fontFamily: 'DM Sans, sans-serif',
-        fontSize: 7,
+        fontSize: 'clamp(7px, 0.7vw, 9px)',
         letterSpacing: '0.2em',
         textTransform: 'uppercase',
         color: ink ? HERO.ink : HERO.sub,
@@ -44,8 +46,8 @@ function CheckerFlag({ side = 'left' }) {
         <div
           key={i}
           style={{
-            width: 5,
-            height: 5,
+            width: 6,
+            height: 6,
             background: on ? HERO.ink : 'transparent',
             border: `0.5px solid ${HERO.frameBorder}`,
           }}
@@ -62,8 +64,8 @@ function CornerIndex({ left, right }) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 14,
-        paddingTop: 10,
+        marginTop: 'clamp(14px, 1.8vw, 24px)',
+        paddingTop: 'clamp(10px, 1.4vw, 18px)',
         borderTop: `0.5px solid ${HERO.frameBorder}`,
       }}
     >
@@ -86,7 +88,7 @@ export default function AboutHeroFrame({ isEn }) {
     <section
       className="about-hero about-page-top"
       style={{
-        padding: '88px 16px 40px',
+        padding: 'clamp(96px, 9vw, 130px) clamp(24px, 5vw, 60px) clamp(48px, 6vw, 80px)',
         background: HERO.outer,
         display: 'flex',
         justifyContent: 'center',
@@ -96,12 +98,12 @@ export default function AboutHeroFrame({ isEn }) {
         className="about-hero-frame about-fade-up"
         style={{
           width: '100%',
-          maxWidth: 560,
+          maxWidth: 1200,
           background: HERO.frame,
           border: `0.5px solid ${HERO.frameBorder}`,
           clipPath: FRAME_CLIP,
           WebkitClipPath: FRAME_CLIP,
-          padding: '20px 18px 18px',
+          padding: 'clamp(20px, 2.6vw, 44px) clamp(18px, 3vw, 52px) clamp(18px, 2.4vw, 40px)',
           color: HERO.ink,
         }}
       >
@@ -112,44 +114,44 @@ export default function AboutHeroFrame({ isEn }) {
             gridTemplateColumns: 'auto 1fr auto',
             alignItems: 'center',
             gap: 8,
-            marginBottom: 12,
+            marginBottom: 'clamp(12px, 1.6vw, 22px)',
           }}
         >
           <Micro ink style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             n01 <span style={{ fontSize: 6 }}>✳</span>
           </Micro>
           <div style={{ textAlign: 'center' }}>
-            <span style={{ fontSize: 6, color: HERO.sub, marginRight: 4 }}>✳</span>
+            <span style={{ fontSize: 'clamp(6px, 0.8vw, 10px)', color: HERO.sub, marginRight: 6 }}>✳</span>
             <span
               style={{
                 fontFamily: 'Cormorant Garamond, serif',
-                fontSize: 13,
+                fontSize: 'clamp(13px, 1.5vw, 22px)',
                 letterSpacing: '0.12em',
                 color: HERO.ink,
               }}
             >
-              RTA<sup style={{ fontSize: 7 }}>®</sup>
+              RTA<sup style={{ fontSize: '0.5em' }}>®</sup>
             </span>
-            <span style={{ fontSize: 6, color: HERO.sub, marginLeft: 4 }}>✳</span>
+            <span style={{ fontSize: 'clamp(6px, 0.8vw, 10px)', color: HERO.sub, marginLeft: 6 }}>✳</span>
           </div>
           <Micro ink style={{ textAlign: 'right' }}>
             <span style={{ fontSize: 6 }}>✳</span> m2026
           </Micro>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'clamp(10px, 1.4vw, 18px)' }}>
           <CheckerFlag side="left" />
           <CheckerFlag side="right" />
         </div>
 
-        {/* Photo */}
-        <div style={{ position: 'relative', marginBottom: 8 }}>
+        {/* Photo — aspect-ratio so it scales with the frame instead of staying a thin letterbox */}
+        <div style={{ position: 'relative', marginBottom: 'clamp(8px, 1.2vw, 16px)' }}>
           <img
             src="/about-hero.jpg"
             alt="Razor Tech Archive — About"
             style={{
               width: '100%',
-              height: 190,
+              aspectRatio: '16 / 9',
               objectFit: 'cover',
               objectPosition: 'center',
               display: 'block',
@@ -159,7 +161,7 @@ export default function AboutHeroFrame({ isEn }) {
             draggable={false}
           />
         </div>
-        <Micro ink style={{ display: 'block', textAlign: 'center', marginBottom: 16 }}>
+        <Micro ink style={{ display: 'block', textAlign: 'center', marginBottom: 'clamp(16px, 2.4vw, 32px)' }}>
           Stealth Cut
         </Micro>
 
@@ -171,19 +173,19 @@ export default function AboutHeroFrame({ isEn }) {
             gridTemplateColumns: 'minmax(0, 1fr) auto minmax(0, 1.4fr) auto minmax(0, 1fr)',
             alignItems: 'end',
             gap: 8,
-            marginBottom: 10,
+            marginBottom: 'clamp(10px, 1.4vw, 18px)',
           }}
         >
           <div>
-            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 300, color: HERO.ink, lineHeight: 1 }}>01</div>
+            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(20px, 2.4vw, 36px)', fontWeight: 300, color: HERO.ink, lineHeight: 1 }}>01</div>
             <Micro>{isEn ? 'Archive No.' : 'Archive No.'}</Micro>
           </div>
-          <span style={{ color: HERO.sub, fontSize: 8, paddingBottom: 4 }}>✣</span>
+          <span style={{ color: HERO.sub, fontSize: 'clamp(8px, 1.2vw, 16px)', paddingBottom: 4 }}>✣</span>
           <h1
             className="about-animate-title"
             style={{
               fontFamily: 'Cormorant Garamond, serif',
-              fontSize: 'clamp(20px, 5vw, 28px)',
+              fontSize: 'clamp(22px, 4.2vw, 48px)',
               fontWeight: 300,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
@@ -195,9 +197,9 @@ export default function AboutHeroFrame({ isEn }) {
           >
             Stealth Cut
           </h1>
-          <span style={{ color: HERO.sub, fontSize: 8, paddingBottom: 4 }}>✣</span>
+          <span style={{ color: HERO.sub, fontSize: 'clamp(8px, 1.2vw, 16px)', paddingBottom: 4 }}>✣</span>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 300, color: HERO.ink, lineHeight: 1 }}>26</div>
+            <div style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 'clamp(20px, 2.4vw, 36px)', fontWeight: 300, color: HERO.ink, lineHeight: 1 }}>26</div>
             <Micro>{isEn ? 'Date' : 'Date'}</Micro>
           </div>
         </div>
@@ -219,6 +221,7 @@ export default function AboutHeroFrame({ isEn }) {
             grid-template-columns: 1fr !important;
             text-align: center;
             justify-items: center;
+            gap: 6px !important;
           }
           .about-hero-title-row > div:last-child {
             text-align: center !important;

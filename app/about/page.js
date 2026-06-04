@@ -37,43 +37,37 @@ function SectionLabel({ children, style, className }) {
   );
 }
 
+// Portrait aspect-ratio cell, caption sits below the image as plain text (no heavy bordered bar)
 function GridCell({ src, caption, alt }) {
   return (
-    <div style={{ position: 'relative', minWidth: 0, height: 96, overflow: 'hidden' }}>
-      <img
-        src={src}
-        alt={alt}
-        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
-        draggable={false}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          padding: '4px 6px',
-          background: C.panelAlt,
-          borderTop: `0.5px solid ${C.border}`,
-        }}
-      >
-        <span style={{ ...labelStyle, fontSize: 6 }}>{caption}</span>
+    <div style={{ minWidth: 0 }}>
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 5', overflow: 'hidden' }}>
+        <img
+          src={src}
+          alt={alt}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+          draggable={false}
+        />
       </div>
+      <span style={{ ...labelStyle, fontSize: 8, display: 'block', marginTop: 10, color: C.text }}>
+        {caption}
+      </span>
     </div>
   );
 }
 
+// Minimal underline link instead of a bordered box
 function TextButton({ href, children }) {
   return (
     <a
       href={href}
       style={{
         ...labelStyle,
-        fontSize: 7,
+        fontSize: 8,
         color: C.text,
         textDecoration: 'none',
-        border: `0.5px solid ${C.border}`,
-        padding: '10px 16px',
+        borderBottom: `0.5px solid ${C.border}`,
+        paddingBottom: 4,
         display: 'inline-block',
       }}
     >
@@ -127,7 +121,7 @@ export default function AboutPage() {
       <section
         className="about-title-block"
         style={{
-          padding: '50px 24px',
+          padding: 'clamp(72px, 10vw, 130px) 24px',
           textAlign: 'center',
           background: C.bg,
           borderTop: `0.5px solid ${C.border}`,
@@ -154,7 +148,7 @@ export default function AboutPage() {
         id="intro"
         className="about-intro-row about-fade-up"
         style={{
-          padding: '44px 24px',
+          padding: 'clamp(40px, 6vw, 72px) clamp(24px, 5vw, 64px)',
           background: C.panelAlt,
           borderTop: `0.5px solid ${C.border}`,
           display: 'flex',
@@ -185,21 +179,21 @@ export default function AboutPage() {
         id="grid"
         className="about-grid-section"
         style={{
-          padding: '44px 24px 48px',
+          padding: 'clamp(48px, 7vw, 88px) clamp(24px, 5vw, 64px)',
           background: C.bg,
           borderTop: `0.5px solid ${C.border}`,
         }}
       >
         <div
           className="about-fade-up"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, gap: 16 }}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, gap: 16 }}
         >
           <SectionLabel>{gridSectionLabel}</SectionLabel>
           <a href="/members" style={{ ...labelStyle, color: C.muted, textDecoration: 'none' }}>
             More
           </a>
         </div>
-        <div className="about-photo-grid about-fade-up" style={{ display: 'flex', gap: 4, marginBottom: 0 }}>
+        <div className="about-photo-grid about-fade-up" style={{ display: 'flex', gap: 8, marginBottom: 0, alignItems: 'flex-start' }}>
           {gridPhotos.map((photo) => (
             <div key={photo.src} style={{ flex: photo.flex, minWidth: 0 }}>
               <GridCell
@@ -216,30 +210,33 @@ export default function AboutPage() {
       <section
         className="about-mid"
         style={{
-          padding: '48px 24px 52px',
+          padding: 'clamp(64px, 9vw, 110px) 24px',
           background: C.panel,
           borderTop: `0.5px solid ${C.border}`,
           textAlign: 'center',
         }}
       >
-        <SectionLabel className="about-fade-up" style={{ display: 'block', marginBottom: 24 }}>
+        <SectionLabel className="about-fade-up" style={{ display: 'block', marginBottom: 28 }}>
           {gridSectionLabel}
         </SectionLabel>
         <p
           className="about-fade-up"
           style={{
             fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(16px, 2.4vw, 22px)',
+            fontSize: 'clamp(20px, 3vw, 30px)',
             fontWeight: 300,
-            lineHeight: 1.75,
+            lineHeight: 1.6,
             color: C.text,
-            maxWidth: 520,
-            margin: '0 auto 28px',
+            maxWidth: 620,
+            margin: '0 auto 48px',
           }}
         >
           {midBody}
         </p>
-        <div className="about-fade-up" style={{ margin: '0 auto 24px', width: 150, height: 180, overflow: 'hidden' }}>
+        <div
+          className="about-fade-up"
+          style={{ margin: '0 auto 40px', width: 'min(360px, 72%)', aspectRatio: '3 / 4', overflow: 'hidden' }}
+        >
           <img
             src="/about-1.jpg"
             alt={isEn ? 'Archive portrait' : 'アーカイブポートレート'}
@@ -255,7 +252,7 @@ export default function AboutPage() {
             lineHeight: 2,
             color: C.muted,
             maxWidth: 480,
-            margin: '0 auto 28px',
+            margin: '0 auto 36px',
           }}
         >
           {observationBody}
@@ -268,16 +265,19 @@ export default function AboutPage() {
         id="philosophy"
         className="about-editorial"
         style={{
-          padding: '48px 24px 52px',
+          padding: 'clamp(64px, 9vw, 110px) clamp(24px, 5vw, 64px)',
           background: C.bg,
           borderTop: `0.5px solid ${C.border}`,
           display: 'flex',
-          gap: 32,
+          gap: 'clamp(32px, 5vw, 72px)',
           alignItems: 'flex-start',
           flexWrap: 'wrap',
         }}
       >
-        <div className="about-fade-up" style={{ width: 150, height: 200, flexShrink: 0, overflow: 'hidden' }}>
+        <div
+          className="about-fade-up"
+          style={{ width: 'clamp(180px, 26vw, 300px)', aspectRatio: '3 / 4', flexShrink: 0, overflow: 'hidden' }}
+        >
           <img
             src="/about-2.jpg"
             alt={isEn ? 'Technique detail' : '技術のディテール'}
@@ -285,8 +285,8 @@ export default function AboutPage() {
             draggable={false}
           />
         </div>
-        <div className="about-fade-up" style={{ flex: '1 1 220px', minWidth: 0 }}>
-          <SectionLabel style={{ display: 'block', marginBottom: 20, color: C.text }}>
+        <div className="about-fade-up" style={{ flex: '1 1 280px', minWidth: 0 }}>
+          <SectionLabel style={{ display: 'block', marginBottom: 24, color: C.text }}>
             RTA Subscription Philosophy
           </SectionLabel>
           <p
@@ -295,12 +295,12 @@ export default function AboutPage() {
               fontSize: 12,
               lineHeight: 2,
               color: C.text,
-              margin: '0 0 24px',
+              margin: '0 0 32px',
             }}
           >
             {pullQuote}
           </p>
-          <div style={{ width: 96, height: 72, overflow: 'hidden', marginBottom: 24 }}>
+          <div style={{ width: 180, aspectRatio: '4 / 3', overflow: 'hidden', marginBottom: 32 }}>
             <img
               src="/about-3.jpg"
               alt=""
@@ -311,14 +311,15 @@ export default function AboutPage() {
           <blockquote
             style={{
               fontFamily: 'Cormorant Garamond, serif',
-              fontSize: 'clamp(18px, 2.8vw, 24px)',
+              fontSize: 'clamp(20px, 3.2vw, 32px)',
               fontStyle: 'italic',
               fontWeight: 300,
-              lineHeight: 1.55,
+              lineHeight: 1.45,
               color: C.text,
-              margin: '0 0 16px',
+              margin: '0 0 20px',
               padding: 0,
               border: 'none',
+              maxWidth: 720,
             }}
           >
             {manifestoQuote}
@@ -385,8 +386,8 @@ export default function AboutPage() {
             flex-wrap: wrap;
           }
           .about-photo-grid > div {
-            flex: 1 1 calc(50% - 2px) !important;
-            min-width: calc(50% - 2px);
+            flex: 1 1 calc(50% - 4px) !important;
+            min-width: calc(50% - 4px);
           }
           .about-editorial {
             flex-direction: column;
