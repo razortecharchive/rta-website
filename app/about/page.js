@@ -381,6 +381,14 @@ export default function AboutPage() {
           .about-intro-row {
             flex-direction: column;
             align-items: flex-start !important;
+            padding-top: 40px !important;
+            padding-bottom: 40px !important;
+          }
+          /* In column flex, 'flex: 1 1 240px' was treating 240px as a HEIGHT
+             basis and stretching the paragraph — reset it so it hugs content. */
+          .about-intro-row > p {
+            flex: 0 0 auto !important;
+            max-width: 100% !important;
           }
           .about-photo-grid {
             flex-wrap: wrap;
@@ -393,10 +401,20 @@ export default function AboutPage() {
             flex-direction: column;
             align-items: center;
           }
+          /* Same flex-basis-as-height fix for the editorial text column */
+          .about-editorial > div:last-child {
+            flex: 0 0 auto !important;
+            width: 100% !important;
+          }
           .about-page .site-footer {
             flex-direction: column;
             align-items: flex-start;
           }
+          /* Trim the desktop-scale vertical air so it isn't excessive on a phone */
+          .about-title-block { padding-top: 56px !important; padding-bottom: 56px !important; }
+          .about-grid-section { padding-top: 44px !important; padding-bottom: 44px !important; }
+          .about-mid { padding-top: 56px !important; padding-bottom: 56px !important; }
+          .about-editorial { padding-top: 56px !important; padding-bottom: 56px !important; }
         }
       `}</style>
     </main>
